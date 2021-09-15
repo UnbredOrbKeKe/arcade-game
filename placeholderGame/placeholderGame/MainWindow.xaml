@@ -1,0 +1,17 @@
+﻿<Window x:Class="placeholderGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:placeholderGame"
+        mc:Ignorable="d"
+        Title="Space Shooter 1v1" Height="820" Width="540">
+    <Canvas Name="MyCanvas" Focusable="True" Background="Black" KeyDown="OnKeyDown" KeyUp="OnKeyUp">
+
+        <Rectangle Name ="player1" Height="50" Width="60" Fill="Yellow" Canvas.Left="240" Canvas.Top="688"/>
+        <Rectangle Name ="player2" Height="50" Width="60" Fill="Green" Canvas.Left="240" Canvas.Top="43"/>
+        <Label Name="scoreText1" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Yellow" Canvas.Top="755"/>
+        <Label Name="scoreText2" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="green"/>
+
+    </Canvas>
+</Window>
