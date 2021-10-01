@@ -95,8 +95,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\backgroundp.png" />
-    <Resource Include="images\Plane_2.png" />
+    <Resource Include="images\bg.png" />
+    <Resource Include="images\playerShip1_orange.png" />
+    <Resource Include="images\playerShip2_blue.png" />
+    <Resource Include="images\space_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="music\FZero_Mute_City_8bit.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
