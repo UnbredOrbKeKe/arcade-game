@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:placeholderGame"
         mc:Ignorable="d"
-        Title="MainMenu" Height="820" Width="540">
+        Title="MainMenu" Height="720" Width="1280">
     <Window.Background>
         <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
     </Window.Background>
@@ -48,7 +48,7 @@
                     Foreground="White" 
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     BorderBrush="White" 
-Click="Start_Click">
+                    Click="Start_Click">
                 <Button.Background>
                     <SolidColorBrush Color="White" Opacity="0.2"/>
                 </Button.Background>
@@ -105,8 +105,8 @@ Click="Start_Click">
                     FontSize="100" 
                     Foreground="White" 
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
-                    Grid.Column="2" 
-                    Margin="238,122,44,-190" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Click="Button_Click"/>
+                    Grid.Column="3" 
+                    Margin="109,122,44,-190" Background="{x:Null}" BorderBrush="{x:Null}" Click="Help_Click"/>
         </Grid>
     </Grid>
 </Window>

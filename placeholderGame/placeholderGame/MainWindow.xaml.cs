@@ -22,8 +22,13 @@ namespace placeholderGame
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+
 		public MainWindow()
+
 		{
+            {
+                InitializeComponent();
+            }
             //make a game timer
             DispatcherTimer gameTimer = new DispatcherTimer();
             // move left and move right boolean declaration
@@ -52,6 +57,7 @@ namespace placeholderGame
 		private void OnKeyUp(object sender, KeyEventArgs e)
 		{
 
-		}
-	}
+        }
+
+}
 }

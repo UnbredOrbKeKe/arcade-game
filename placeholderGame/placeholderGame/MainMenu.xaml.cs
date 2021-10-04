@@ -26,7 +26,8 @@ namespace placeholderGame
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow gameWindow = new MainWindow();
+            gameWindow.Visibility = Visibility.Visible;
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -36,7 +37,7 @@ namespace placeholderGame
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-
+            Application.Current.Shutdown();
         }
 
         private void Help_Click(object sender, RoutedEventArgs e)
