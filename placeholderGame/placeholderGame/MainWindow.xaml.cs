@@ -50,7 +50,6 @@ namespace PlaceholderGame
 			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 			gameTimer.Tick += gameEngine;
 			gameTimer.Start();
-
 			MyCanvas.Focus();
 
 			ImageBrush bg = new ImageBrush();
@@ -75,7 +74,7 @@ namespace PlaceholderGame
 
 		private void gameEngine(object sender, EventArgs e)
 		{
-			player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height);
+			
 
 			if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
 			{
@@ -137,6 +136,7 @@ namespace PlaceholderGame
 					}
 				}
 			}
+			player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height);
 
 		}
 
