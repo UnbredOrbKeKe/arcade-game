@@ -42,7 +42,8 @@ namespace placeholderGame
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-
+            GameHelp helpWindow = new GameHelp();
+            helpWindow.Visibility = Visibility.Visible;
         }
     }
 }
