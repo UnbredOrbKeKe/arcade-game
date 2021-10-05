@@ -17,7 +17,7 @@
         <Label VerticalContentAlignment="Top"
                HorizontalContentAlignment="Left"
                Content="Your goal is to get as&#xA;many points as possible.&#xA;by shooting enemies and&#xA;your opponent.&#xA;&#xA;When hit, you will lose&#xA;points and your guns&#xA;will be disabled for a &#xA;short time&#xA;&#xA;Controls:&#xA;WASD and Arrow Keys" 
-               FontSize="50"
+               FontSize="25"
                Foreground="White" 
                FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
     </Grid>
