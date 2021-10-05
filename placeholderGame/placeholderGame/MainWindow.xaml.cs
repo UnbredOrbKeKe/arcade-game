@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Media;
+using Microsoft.Win32;
 
 using System.Windows.Threading; // add this for the timer
 
@@ -41,16 +43,23 @@ namespace PlaceholderGame
 		Rect player1HitBox;
 		Rect player2HitBox;
 
+		private MediaPlayer music = new MediaPlayer();
+
+
 		List<Rectangle> itemstoremove = new List<Rectangle>();
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
+
 			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
-			gameTimer.Tick += gameEngine;
+			gameTimer.Tick += new EventHandler(GameEngine);
 			gameTimer.Start();
 			MyCanvas.Focus();
+
+			music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
+			music.Play();
 
 			ImageBrush bg = new ImageBrush();
 			bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
@@ -67,15 +76,11 @@ namespace PlaceholderGame
 			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
 			player2.Fill = player2Image;
 
-			//MediaPlayer music = new MediaPlayer();
-			//music.Open(new Uri("pack://application:,,,/music/FZero_Mute_City_8bit.mp3"));
-			//music.Play();
 		}
 
-		private void gameEngine(object sender, EventArgs e)
-		{
-			
 
+		public void GameEngine(object sender, EventArgs e)
+		{
 			if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
 			{
 				Canvas.SetTop(player1, Canvas.GetTop(player1) - player1Speed);
@@ -100,13 +105,13 @@ namespace PlaceholderGame
 				if (x is Rectangle && (string)x.Tag == "bullet")
 				{
 					// move the bullet rectangle towards top of the screen
-					Canvas.SetTop(x, Canvas.GetTop(x) - 20);
+					Canvas.SetLeft(x, Canvas.GetLeft(x) - 20);
 
 					// make a rect class with the bullet rectangles properties
 					Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
 					// check if bullet has reached top part of the screen
-					if (Canvas.GetTop(x) < 10)
+					if (Canvas.GetLeft(x) < 10)
 					{
 						// if it has then add it to the item to remove list
 						itemstoremove.Add(x);

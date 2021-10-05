@@ -42,7 +42,6 @@
         <Rectangle Name ="ui" Height="34" Width="1280" Fill="DarkGray" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1"/>
         <Label Name="timer" FontSize="18" FontWeight="Bold" Content="time" VerticalAlignment="Center" Foreground="Red" Canvas.Left="504" Height="34" Width="180" />
 
-        <!--<MediaElement x:Name="Background_music" Source="pack://application:,,,/music/FZero_Mute_City_8bit.mp3" />-->
 
     </Canvas>
 </Window>
