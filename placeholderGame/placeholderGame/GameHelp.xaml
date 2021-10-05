@@ -1,0 +1,24 @@
+﻿<Window x:Class="placeholderGame.GameHelp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:placeholderGame"
+        mc:Ignorable="d"
+        Title="GameRules" Height="730" Width="730">
+    <Window.Background>
+        <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="White" Opacity="0.1"/>
+        </Grid.Background>
+        <Label VerticalContentAlignment="Top"
+               HorizontalContentAlignment="Left"
+               Content="Your goal is to get as&#xA;many points as possible.&#xA;by shooting enemies and&#xA;your opponent.&#xA;&#xA;When hit, you will lose&#xA;points and your guns&#xA;will be disabled for a &#xA;short time&#xA;&#xA;Controls:&#xA;WASD and Arrow Keys" 
+               FontSize="25"
+               Foreground="White" 
+               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
+    </Grid>
+</Window>
