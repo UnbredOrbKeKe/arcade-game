@@ -48,6 +48,13 @@ namespace PlaceholderGame
 
 		List<Rectangle> itemstoremove = new List<Rectangle>();
 
+
+		private Random Rand = new Random();
+		private int EnemySpawnMax = 50;
+		private int EnemySpawnCount = 100;
+		private const int EnemySpeed = 10;
+		
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -140,9 +147,29 @@ namespace PlaceholderGame
 
 					}
 				}
+
+				if((string)x.Tag == "EnemyTop")
+                {
+					Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
+					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+				}
+
+				if ((string)x.Tag == "EnemyBottom")
+				{
+					Canvas.SetBottom(x, Canvas.GetBottom(x) + EnemySpeed);
+					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+				}
 			}
 			player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height);
 
+			EnemySpawnCount--;
+            if (EnemySpawnCount < 0)
+            {
+				MakeEnemies();
+				EnemySpawnCount = EnemySpawnMax;
+            }
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
@@ -206,6 +233,50 @@ namespace PlaceholderGame
 			}
 		}
 
+
+		private void MakeEnemies()
+        {
+			int EnemySpawn = rand.Next(1, 3);
+
+			ImageBrush EnemyBall = new ImageBrush();
+			EnemyBall.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/pokeball.png"));
+			
+
+			switch (EnemySpawn)
+            {
+               case 1:
+					Rectangle NewEnemyTop = new Rectangle
+					{
+						Tag = "EnemyTop",
+						Height = 80,
+						Width = 80,
+						Fill = EnemyBall
+					};
+
+					Canvas.SetTop(NewEnemyTop, -100);
+					Canvas.SetLeft(NewEnemyTop, rand.Next(320, 960));
+					MyCanvas.Children.Add(NewEnemyTop);
+                    break;
+
+				case 2:
+					Rectangle NewEnemyBottom = new Rectangle
+					{
+						Tag = "EnemyBottom",
+						Height = 80,
+						Width = 80,
+						Fill = EnemyBall
+					};
+
+					Canvas.SetBottom(NewEnemyBottom, -100);
+					Canvas.SetLeft(NewEnemyBottom, rand.Next(320, 960));
+					MyCanvas.Children.Add(NewEnemyBottom);
+					break;
+
+            }
+
+			GC.Collect();
+
+        }
 
 	}
 }
