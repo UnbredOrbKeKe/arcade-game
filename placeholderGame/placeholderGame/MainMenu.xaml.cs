@@ -26,7 +26,7 @@ namespace placeholderGame
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow gameWindow = new MainWindow();
+            PlaceholderGame.MainWindow gameWindow = new PlaceholderGame.MainWindow();
             gameWindow.Visibility = Visibility.Visible;
         }
 
