@@ -101,7 +101,9 @@
     <Resource Include="images\space_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\pokeball.png" />
+    <Resource Include="images\PokeBall.png" />
+    <Resource Include="images\UltraBall.png" />
+    <Resource Include="images\MasterBall.png" />
     <Content Include="music\FZero_Mute_City_8bit.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

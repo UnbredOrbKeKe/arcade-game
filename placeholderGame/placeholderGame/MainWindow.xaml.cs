@@ -24,14 +24,13 @@ namespace PlaceholderGame
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		DispatcherTimer gameTimer = new DispatcherTimer();
+		DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
 		bool moveLeft1, moveRight1, moveRight2, moveLeft2;
 		List<Rectangle> itemRemover = new List<Rectangle>();
 
 		Random rand = new Random();
 
-		int enemySpriteCounter = 0;
-		int enemyCounter = 100;
+		
 		int player1Speed = 10;
 		int player2Speed = 10;
 		int limit = 50;
@@ -54,6 +53,7 @@ namespace PlaceholderGame
 		private int EnemySpawnCount = 100;
 		private const int EnemySpeed = 10;
 		
+
 
 		public MainWindow()
 		{
@@ -128,7 +128,7 @@ namespace PlaceholderGame
 					foreach (var y in MyCanvas.Children.OfType<Rectangle>())
 					{
 						// if y is a rectangle and it has a tag called enemy
-						if (y is Rectangle && (string)y.Tag == "enemy")
+						if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
 						{
 							// make a local rect called enemy and put the enemies properties into it
 							Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
@@ -145,6 +145,7 @@ namespace PlaceholderGame
 							}
 						}
 
+					
 					}
 				}
 
@@ -153,16 +154,30 @@ namespace PlaceholderGame
 					Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
 					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
+					if (Canvas.GetTop(x) + 20 > 720)
+					{
+						itemstoremove.Add(x);
+					}
 				}
 
 				if ((string)x.Tag == "EnemyBottom")
 				{
-					Canvas.SetBottom(x, Canvas.GetBottom(x) + EnemySpeed);
+					Canvas.SetTop(x, Canvas.GetTop(x) - EnemySpeed);
 					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
+					if (Canvas.GetTop(x) + 20 < 0)
+					{
+						itemstoremove.Add(x);
+					}
 				}
 			}
 			player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height);
+
+
+            foreach (Rectangle r in itemstoremove)
+            {
+				MyCanvas.Children.Remove(r);
+            }
 
 			EnemySpawnCount--;
             if (EnemySpawnCount < 0)
@@ -236,12 +251,27 @@ namespace PlaceholderGame
 
 		private void MakeEnemies()
         {
+			ImageBrush EnemyType = new ImageBrush();
+			int EnemyTypeCounter = rand.Next(1, 9);
+
+			switch (EnemyTypeCounter)
+            {
+				case 1: case 2: case 3: case 4: case 5:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/PokeBall.png"));
+					break;
+
+				case 6: case 7:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/UltraBall.png"));
+					break;
+
+				case 8:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/MasterBall.png"));
+					break;
+
+            }
+
 			int EnemySpawn = rand.Next(1, 3);
-
-			ImageBrush EnemyBall = new ImageBrush();
-			EnemyBall.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/pokeball.png"));
 			
-
 			switch (EnemySpawn)
             {
                case 1:
@@ -250,11 +280,11 @@ namespace PlaceholderGame
 						Tag = "EnemyTop",
 						Height = 80,
 						Width = 80,
-						Fill = EnemyBall
+						Fill = EnemyType
 					};
 
 					Canvas.SetTop(NewEnemyTop, -100);
-					Canvas.SetLeft(NewEnemyTop, rand.Next(320, 960));
+					Canvas.SetLeft(NewEnemyTop, rand.Next(400, 880));
 					MyCanvas.Children.Add(NewEnemyTop);
                     break;
 
@@ -264,11 +294,11 @@ namespace PlaceholderGame
 						Tag = "EnemyBottom",
 						Height = 80,
 						Width = 80,
-						Fill = EnemyBall
+						Fill = EnemyType
 					};
 
-					Canvas.SetBottom(NewEnemyBottom, -100);
-					Canvas.SetLeft(NewEnemyBottom, rand.Next(320, 960));
+					Canvas.SetTop(NewEnemyBottom, 820);
+					Canvas.SetLeft(NewEnemyBottom, rand.Next(400, 880));
 					MyCanvas.Children.Add(NewEnemyBottom);
 					break;
 
