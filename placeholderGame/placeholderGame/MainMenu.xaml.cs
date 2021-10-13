@@ -34,6 +34,10 @@ namespace placeholderGame
         {
 
         }
+        private void Leaderboards_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {

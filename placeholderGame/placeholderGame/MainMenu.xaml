@@ -9,12 +9,15 @@
     <Window.Background>
         <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
     </Window.Background>
+    
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height=".25*"/>
+            <RowDefinition/>
             <RowDefinition Height=".25*"/>
             <RowDefinition/>
             <RowDefinition Height=".25*"/>
@@ -78,6 +81,27 @@
 
         <Grid Grid.Row="8">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="LEADERBOARDS"
+                    FontSize="40" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    BorderBrush="White" 
+                    Click="Leaderboards_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="White" Opacity="0.2"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="10">
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="106*"/>
                 <ColumnDefinition Width="70*"/>
                 <ColumnDefinition Width="249*"/>
@@ -106,7 +130,10 @@
                     Foreground="White" 
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     Grid.Column="3" 
-                    Margin="109,122,44,-190" Background="{x:Null}" BorderBrush="{x:Null}" Click="Help_Click"/>
+                    Margin="109,122,44,-190" 
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}" 
+                    Click="Help_Click"/>
         </Grid>
     </Grid>
 </Window>
