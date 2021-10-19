@@ -24,7 +24,7 @@ namespace PlaceholderGame
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		DispatcherTimer gameTimer = new DispatcherTimer();
+		DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
 		bool moveLeft1, moveRight1, moveRight2, moveLeft2;
 		List<Rectangle> itemRemover = new List<Rectangle>();
 
