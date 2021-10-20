@@ -65,8 +65,8 @@ namespace PlaceholderGame
 			gameTimer.Start();
 			MyCanvas.Focus();
 
-			music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
-			music.Play();
+			//music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
+			//music.Play();
 			
 			ImageBrush bg = new ImageBrush();
 			bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
@@ -315,23 +315,31 @@ namespace PlaceholderGame
 		private void MakeEnemies()
         {
 			ImageBrush EnemyType = new ImageBrush();
-			int EnemyTypeCounter = rand.Next(1, 9);
+			int EnemyTypeCounter = rand.Next(1, 16);
 
 			switch (EnemyTypeCounter)
             {
 				case 1: case 2: case 3: case 4: case 5:
-					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/PokeBall.png"));
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/1.png"));
 					break;
 
-				case 6: case 7:
-					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/UltraBall.png"));
+				case 6: case 7: case 8: case 9:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/2.png"));
 					break;
 
-				case 8:
-					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/MasterBall.png"));
+				case 10: case 11: case 12:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/3.png"));
 					break;
 
-            }
+				case 13: case 14:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/4.png"));
+					break;
+
+				case 15:
+					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/5.png"));
+					break;
+
+			}
 
 			int EnemySpawn = rand.Next(1, 3);
 			
