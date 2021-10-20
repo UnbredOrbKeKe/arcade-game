@@ -67,7 +67,7 @@ namespace PlaceholderGame
 
 			music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
 			music.Play();
-
+			
 			ImageBrush bg = new ImageBrush();
 			bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
 			bg.TileMode = TileMode.Tile;
@@ -88,6 +88,10 @@ namespace PlaceholderGame
 
 		public void GameEngine(object sender, EventArgs e)
 		{
+			scoreText1.Content = "Score: " + score1;
+			scoreText2.Content = "Score: " + score2;
+
+
 			if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
 			{
 				Canvas.SetTop(player1, Canvas.GetTop(player1) - player1Speed);
@@ -108,84 +112,124 @@ namespace PlaceholderGame
 
 			foreach (var x in MyCanvas.Children.OfType<Rectangle>())
 			{
-				// if any rectangle has the tag bullet in it
-				if (x is Rectangle && (string)x.Tag == "bullet")
-				{
-					// move the bullet rectangle towards top of the screen
-					Canvas.SetLeft(x, Canvas.GetLeft(x) - 20);
 
-					// make a rect class with the bullet rectangles properties
+				if (x is Rectangle && (string)x.Tag == "bullet1")
+				{
+
+					Canvas.SetLeft(x, Canvas.GetLeft(x) + 20);
+
+
 					Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
-					// check if bullet has reached top part of the screen
+
 					if (Canvas.GetLeft(x) < 10)
 					{
-						// if it has then add it to the item to remove list
+
 						itemstoremove.Add(x);
 					}
 
-					// run another for each loop inside of the main loop this one has a local variable called y
+
 					foreach (var y in MyCanvas.Children.OfType<Rectangle>())
 					{
-						// if y is a rectangle and it has a tag called enemy
+
 						if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
 						{
-							// make a local rect called enemy and put the enemies properties into it
 							Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
-
-							// now check if bullet and enemy is colliding or not
-							// if the bullet is colliding with the enemy rectangle
 							if (bullet.IntersectsWith(enemy))
 							{
 
-								itemstoremove.Add(x); // remove bullet
-								itemstoremove.Add(y); // remove enemy
-								score1++; // add one to the score
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1++;
 							}
 						}
 
-					
-					}
-				}
 
-				if((string)x.Tag == "EnemyTop")
-                {
-					Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
-					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-					if (Canvas.GetTop(x) + 20 > 720)
-					{
-						itemstoremove.Add(x);
-					}
-				}
-
-				if ((string)x.Tag == "EnemyBottom")
-				{
-					Canvas.SetTop(x, Canvas.GetTop(x) - EnemySpeed);
-					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-					if (Canvas.GetTop(x) + 20 < 0)
-					{
-						itemstoremove.Add(x);
 					}
 				}
 			}
-			player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height);
 
 
-            foreach (Rectangle r in itemstoremove)
-            {
-				MyCanvas.Children.Remove(r);
-            }
+			
 
-			EnemySpawnCount--;
-            if (EnemySpawnCount < 0)
-            {
-				MakeEnemies();
-				EnemySpawnCount = EnemySpawnMax;
-            }
-		}
+				foreach (var x in MyCanvas.Children.OfType<Rectangle>())
+				{
+
+					if (x is Rectangle && (string)x.Tag == "bullet2")
+					{
+
+						Canvas.SetLeft(x, Canvas.GetLeft(x) - 20);
+
+
+						Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+
+						if (Canvas.GetLeft(x) < 10)
+						{
+
+							itemstoremove.Add(x);
+						}
+
+
+						foreach (var y in MyCanvas.Children.OfType<Rectangle>())
+						{
+
+							if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
+							{
+								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+
+								if (bullet.IntersectsWith(enemy))
+								{
+
+									itemstoremove.Add(x);
+									itemstoremove.Add(y);
+									score2++;
+								}
+							}
+
+
+						}
+					}
+
+					if ((string)x.Tag == "EnemyTop")
+					{
+						Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
+						Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+						if (Canvas.GetTop(x) + 20 > 720)
+						{
+							itemstoremove.Add(x);
+						}
+					}
+
+					if ((string)x.Tag == "EnemyBottom")
+					{
+						Canvas.SetTop(x, Canvas.GetTop(x) - EnemySpeed);
+						Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+						if (Canvas.GetTop(x) + 20 < 0)
+						{
+							itemstoremove.Add(x);
+						}
+					}
+				}
+				player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height);
+
+
+				foreach (Rectangle r in itemstoremove)
+				{
+					MyCanvas.Children.Remove(r);
+				}
+
+				EnemySpawnCount--;
+				if (EnemySpawnCount < 0)
+				{
+					MakeEnemies();
+					EnemySpawnCount = EnemySpawnMax;
+				}
+			}
+		
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
@@ -232,18 +276,37 @@ namespace PlaceholderGame
 			{
 				Rectangle newBullet = new Rectangle
 				{
-					Tag = "bullet",
+					Tag = "bullet2",
 					Height = 5,
 					Width = 5,
 					Fill = Brushes.White,
 					Stroke = Brushes.Red
 				};
 
-				// place the bullet on top of the player location
+				
 				Canvas.SetTop(newBullet, Canvas.GetTop(player1) + player1.Height / 2);
-				// place the bullet middle of the player image
+				
 				Canvas.SetLeft(newBullet, Canvas.GetLeft(player1) - newBullet.Width);
-				// add the bullet to the screen
+				
+				MyCanvas.Children.Add(newBullet);
+			}
+
+			if (e.Key == Key.LeftShift)
+			{
+				Rectangle newBullet = new Rectangle
+				{
+					Tag = "bullet1",
+					Height = 5,
+					Width = 5,
+					Fill = Brushes.White,
+					Stroke = Brushes.Red
+				};
+
+
+				Canvas.SetTop(newBullet, Canvas.GetTop(player2) + player2.Height / 2);
+
+				Canvas.SetLeft(newBullet, newBullet.Width + Canvas.GetLeft(player2) + player2.Width);
+
 				MyCanvas.Children.Add(newBullet);
 			}
 		}
