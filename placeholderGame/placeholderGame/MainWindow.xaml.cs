@@ -25,19 +25,18 @@ namespace PlaceholderGame
 	public partial class MainWindow : Window
 	{
 		DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
+		DispatcherTimer dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal);
 		bool moveLeft1, moveRight1, moveRight2, moveLeft2;
 		List<Rectangle> itemRemover = new List<Rectangle>();
 
 		Random rand = new Random();
 
 		
-		int player1Speed = 10;
-		int player2Speed = 10;
-		int limit = 50;
-		int score1 = 0;
-		int coins1 = 0;
-		int coins2 = 0;
-		int score2 = 0;
+		private int player1Speed = 10;
+		private int player2Speed = 10;
+		private int limit = 50;
+		public int score1 = 0;
+		public int score2 = 0;
 
 		Rect player1HitBox;
 		Rect player2HitBox;
@@ -52,12 +51,15 @@ namespace PlaceholderGame
 		private int EnemySpawnMax = 50;
 		private int EnemySpawnCount = 100;
 		private const int EnemySpeed = 10;
+
 		
 
 
 		public MainWindow()
 		{
 			InitializeComponent();
+			exit.IsEnabled = false;
+			exit.Visibility = Visibility.Hidden;
 
 
 			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
@@ -65,9 +67,16 @@ namespace PlaceholderGame
 			gameTimer.Start();
 			MyCanvas.Focus();
 
-			//music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
-			//music.Play();
 			
+			dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+			dispatcherTimer.Tick += Dt_Tick;
+			dispatcherTimer.Start();
+
+		
+
+			music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
+			music.Play();
+
 			ImageBrush bg = new ImageBrush();
 			bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
 			bg.TileMode = TileMode.Tile;
@@ -83,6 +92,22 @@ namespace PlaceholderGame
 			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
 			player2.Fill = player2Image;
 
+		}
+		private int increment = 120;
+		private void Dt_Tick(object sender, EventArgs e)
+		{
+			increment--;
+			timer.Content = "timer: " + increment.ToString();
+			if(increment == 0)
+			{
+				dispatcherTimer.Stop();
+				music.Stop();
+				gameTimer.Stop();
+				gameover.Content = "GAME OVER";
+
+				exit.IsEnabled = true;
+				exit.Visibility = Visibility.Visible;
+			}
 		}
 
 
@@ -229,7 +254,15 @@ namespace PlaceholderGame
 					EnemySpawnCount = EnemySpawnMax;
 				}
 			}
-		
+
+		private void Menu_Click(object sender, RoutedEventArgs e)
+		{
+			placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu
+			{
+				Visibility = Visibility.Visible
+			};
+			Close();
+		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
@@ -291,7 +324,7 @@ namespace PlaceholderGame
 				MyCanvas.Children.Add(newBullet);
 			}
 
-			if (e.Key == Key.LeftShift)
+			if (e.Key == Key.Space)
 			{
 				Rectangle newBullet = new Rectangle
 				{
