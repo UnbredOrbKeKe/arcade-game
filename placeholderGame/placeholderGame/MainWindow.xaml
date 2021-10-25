@@ -73,6 +73,7 @@
             Width="180" 
             Canvas.Top="-5" 
             HorizontalAlignment="Center" Panel.ZIndex="2" />
+        
 
         <Label 
             x:Name="gameover" 
