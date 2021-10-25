@@ -9,7 +9,7 @@
 
     <Canvas Name="MyCanvas" Focusable="True" Background="Black" KeyDown="OnKeyDown" KeyUp="OnKeyUp" Width="1280" Height="720">
 
-        <Rectangle Name ="player1" Height="60" Width="50" Fill="Yellow" Canvas.Left="1205" Canvas.Top="360" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Rectangle x:Name ="player1" Height="60" Width="50" Fill="Yellow" Canvas.Left="1205" Canvas.Top="360" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.LayoutTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -27,7 +27,7 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <Rectangle Name ="player2" Height="60" Width="50" Fill="Green" Canvas.Left="18" Canvas.Top="360" RenderTransformOrigin="0.5,0.5">
+        <Rectangle x:Name ="player2" Height="60" Width="50" Fill="Green" Canvas.Left="18" Canvas.Top="360" RenderTransformOrigin="0.5,0.5">
             <Rectangle.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -37,8 +37,8 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <Label x:Name="scoreText2" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Orange" Canvas.Left="1193" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="scoreText1" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Aqua" Canvas.Left="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="scoreText1" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Orange" Canvas.Left="1193" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="scoreText2" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Aqua" Canvas.Left="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Rectangle x:Name ="ui" Height="34" Width="1280" Fill="DarkGray" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1"/>
         <Label x:Name="timer" FontSize="18" FontWeight="Bold" Content="time" VerticalAlignment="Center" Foreground="Red" Canvas.Left="504" Height="34" Width="180" />
 
