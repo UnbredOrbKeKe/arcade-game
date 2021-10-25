@@ -122,6 +122,9 @@
     <Resource Include="images\3.png" />
     <Resource Include="images\4.png" />
     <Resource Include="images\5.png" />
+    <Resource Include="images\asteroid.png" />
+    <Resource Include="images\playerShip1_hit.png" />
+    <Resource Include="images\playerShip2_hit.png" />
     <Content Include="music\FZero_Mute_City_8bit.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
