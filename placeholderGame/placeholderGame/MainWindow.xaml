@@ -37,10 +37,88 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <Label x:Name="scoreText1" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Orange" Canvas.Left="1193" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="scoreText2" Content="Score: 0" FontSize="18" FontWeight="Bold" Foreground="Aqua" Canvas.Left="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Rectangle x:Name ="ui" Height="34" Width="1280" Fill="DarkGray" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1"/>
-        <Label x:Name="timer" FontSize="18" FontWeight="Bold" Content="time" VerticalAlignment="Center" Foreground="Red" Canvas.Left="504" Height="34" Width="180" />
+        <Label 
+            x:Name="scoreText1" 
+            Content="Score: 0" 
+            FontSize="30" 
+            FontWeight="Bold" 
+            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            Foreground="Orange" 
+            Canvas.Left="1110" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Canvas.Top="-5" Width="170" Panel.ZIndex="2"/>
+
+        <Label 
+            x:Name="scoreText2" 
+            Content="Score: 0" 
+            FontSize="30" 
+            FontWeight="Bold" 
+            Foreground="Aqua" 
+            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+            Canvas.Left="10" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Canvas.Top="-5" Width="170" Panel.ZIndex="2"/>
+
+        <Rectangle x:Name ="ui" Height="204" Width="1280" Fill="Black" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Canvas.Top="-170" />
+        <Label 
+            x:Name="timer" 
+            FontSize="30" 
+            FontWeight="Bold" 
+            Content="timer: 120"
+            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            VerticalAlignment="Center" 
+            Foreground="Red" 
+            Canvas.Left="561" 
+            Height="34" 
+            Width="180" 
+            Canvas.Top="-5" 
+            HorizontalAlignment="Center" Panel.ZIndex="2" />
+
+        <Label 
+            x:Name="gameover" 
+            FontSize="72" 
+            FontWeight="Bold" 
+            Content=""
+            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            VerticalAlignment="Center" 
+            Foreground="Red" 
+            Canvas.Left="401" 
+            Height="106" 
+            Width="458" 
+            Canvas.Top="314" 
+            HorizontalAlignment="Center" Panel.ZIndex="2" />
+
+        <Button     x:Name="exit"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="EXIT GAME"
+                    FontSize="40" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    BorderBrush="White" 
+                    Click="Menu_Click" Canvas.Left="528" Canvas.Top="450">
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.2"/>
+            </Button.Background>
+        </Button>
+
+        <CheckBox x:Name="musicMute" 
+                  Content="Mute music" 
+                  FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                  FontSize="15"  
+                  Foreground="White" 
+                  BorderBrush="White" 
+                  Canvas.Left="859" 
+                  Canvas.Top="10" 
+                  Height="17" 
+                  Width="122" 
+                  Panel.ZIndex="4" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center"
+                  Checked="muteMusic"
+                  Unchecked="muteMusic"
+                  Focusable="False"
+                  />
 
 
     </Canvas>

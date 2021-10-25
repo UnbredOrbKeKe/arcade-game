@@ -25,18 +25,16 @@ namespace PlaceholderGame
 	public partial class MainWindow : Window
 	{
 		DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
+		DispatcherTimer dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal);
 		bool moveLeft1, moveRight1, moveRight2, moveLeft2;
 		List<Rectangle> itemRemover = new List<Rectangle>();
 
 		Random rand = new Random();
 
-		int TimeLeft = 180;
-		
+
 		int player1Speed = 10;
 		int player2Speed = 10;
 		int score1 = 0;
-		int coins1 = 0;
-		int coins2 = 0;
 		int score2 = 0;
 
 		int Player1ShootDelay = 250;
@@ -58,22 +56,27 @@ namespace PlaceholderGame
 		private int EnemySpawnMax = 50;
 		private int EnemySpawnCount = 100;
 		private const int EnemySpeed = 10;
-		
+
 
 
 		public MainWindow()
 		{
 			InitializeComponent();
-
+			exit.IsEnabled = false;
+			exit.Visibility = Visibility.Hidden;
 
 			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 			gameTimer.Tick += new EventHandler(GameEngine);
 			gameTimer.Start();
 			MyCanvas.Focus();
 
-			//music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
-			//music.Play();
-			
+			dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+			dispatcherTimer.Tick += Dt_Tick;
+			dispatcherTimer.Start();
+
+			music.Open(new Uri("pack://siteoforigin:,,,/music/FZero_Mute_City_8bit.mp3"));
+			music.Play();
+
 			ImageBrush bg = new ImageBrush();
 			bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
 			bg.TileMode = TileMode.Tile;
@@ -90,18 +93,55 @@ namespace PlaceholderGame
 			player2.Fill = player2Image;
 
 		}
+		private void Menu_Click(object sender, RoutedEventArgs e)
+		{
+			placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu
+			{
+				Visibility = Visibility.Visible
+			};
+			Close();
+		}
 
-        #region GameEngine
-        public void GameEngine(object sender, EventArgs e)
+		private void muteMusic(object sender, RoutedEventArgs e)
+		{
+			if (musicMute.IsChecked == true)
+			{
+				music.Pause();
+			}
+			else
+			{
+				music.Play();
+			}
+		}
+		private int increment = 120;
+		private void Dt_Tick(object sender, EventArgs e)
+		{
+			increment--;
+			timer.Content = "timer: " + increment.ToString();
+			if (increment == 0)
+			{
+				dispatcherTimer.Stop();
+				music.Stop();
+				gameTimer.Stop();
+				gameover.Content = "GAME OVER";
+
+				exit.IsEnabled = true;
+				exit.Visibility = Visibility.Visible;
+			}
+		}
+
+
+		#region GameEngine
+		public void GameEngine(object sender, EventArgs e)
 		{
 			scoreText1.Content = "Score: " + score1;
 			scoreText2.Content = "Score: " + score2;
-			
+
 			Rect player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height); //hitbox player rechts
 			Rect player2HitBox = new Rect(Canvas.GetLeft(player2), Canvas.GetTop(player2), player2.Width, player2.Height); //hitbox player links
 
 			EnemyAsteroid(rand.Next(1, 51));
-            
+
 			if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
 			{
 				Canvas.SetTop(player1, Canvas.GetTop(player1) - player1Speed);
@@ -141,8 +181,8 @@ namespace PlaceholderGame
 					{
 						itemstoremove.Add(x);
 						Player1CanShoot = false;
-						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => {Player1CanShoot = true; });
-						
+						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
+
 					}
 
 					foreach (var y in MyCanvas.Children.OfType<Rectangle>())
@@ -209,7 +249,7 @@ namespace PlaceholderGame
 			}
 
 
-			
+
 
 			foreach (var x in MyCanvas.Children.OfType<Rectangle>())
 			{
@@ -282,8 +322,8 @@ namespace PlaceholderGame
 								Task.Delay(PowerUpTime).ContinueWith(_ => { Player1ShootDelay = 250; });
 							}
 						}
-                        #region Bullet1 Intersects with asteroid
-                        if (y is Rectangle && ((string)y.Tag == "asteroidLinks" || (string)y.Tag == "asteroidRechts"))
+						#region Bullet1 Intersects with asteroid
+						if (y is Rectangle && ((string)y.Tag == "asteroidLinks" || (string)y.Tag == "asteroidRechts"))
 						{
 							Rect asteroid = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
@@ -296,11 +336,11 @@ namespace PlaceholderGame
 
 							}
 						}
-                        #endregion
-                    }
-                }
-                #region Enemy Deleted When out of frame
-                if ((string)x.Tag == "EnemyTop")
+						#endregion
+					}
+				}
+				#region Enemy Deleted When out of frame
+				if ((string)x.Tag == "EnemyTop")
 				{
 					Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
 					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
@@ -364,10 +404,10 @@ namespace PlaceholderGame
 
 					}
 				}
-                #endregion
-            }
+				#endregion
+			}
 
-            foreach (Rectangle r in itemstoremove)
+			foreach (Rectangle r in itemstoremove)
 			{
 				MyCanvas.Children.Remove(r);
 			}
@@ -379,10 +419,10 @@ namespace PlaceholderGame
 				EnemySpawnCount = EnemySpawnMax;
 			}
 		}
-        #endregion
+		#endregion
 
-        #region OnKeyDown
-        private void OnKeyDown(object sender, KeyEventArgs e)
+		#region OnKeyDown
+		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Up)
 			{
@@ -404,10 +444,10 @@ namespace PlaceholderGame
 
 
 		}
-        #endregion
+		#endregion
 
-        #region OnKeyUp
-        private void OnKeyUp(object sender, KeyEventArgs e)
+		#region OnKeyUp
+		private void OnKeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Up)
 			{
@@ -430,7 +470,7 @@ namespace PlaceholderGame
 			if (e.Key == Key.RightShift && Player1CanShoot == true)
 			{
 				Player1Shoot();
-				
+
 			}
 
 			if (e.Key == Key.Space && Player2CanShoot == true)
@@ -439,33 +479,43 @@ namespace PlaceholderGame
 			}
 
 		}
-        #endregion
+		#endregion
 
-        #region MakeEnemies
-        private void MakeEnemies()
-        {
+		#region MakeEnemies
+		private void MakeEnemies()
+		{
 			ImageBrush EnemyType = new ImageBrush();
 			int EnemyTypeCounter = rand.Next(1, 16);
 			int Dimension = 0;
-			
+
 			switch (EnemyTypeCounter)
-            {
-				case 1: case 2: case 3: case 4: case 5:
+			{
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/1.png"));
 					Dimension = 82;
 					break;
 
-				case 6: case 7: case 8: case 9:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/2.png"));
 					Dimension = 81;
 					break;
 
-				case 10: case 11: case 12:
+				case 10:
+				case 11:
+				case 12:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/3.png"));
 					Dimension = 80;
 					break;
 
-				case 13: case 14:
+				case 13:
+				case 14:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/4.png"));
 					Dimension = 79;
 					break;
@@ -478,10 +528,10 @@ namespace PlaceholderGame
 			}
 
 			int EnemySpawn = rand.Next(1, 3);
-			
+
 			switch (EnemySpawn)
-            {
-               case 1:
+			{
+				case 1:
 					Rectangle NewEnemyTop = new Rectangle
 					{
 						Tag = "EnemyTop",
@@ -493,7 +543,7 @@ namespace PlaceholderGame
 					Canvas.SetTop(NewEnemyTop, -100);
 					Canvas.SetLeft(NewEnemyTop, rand.Next(400, 880));
 					MyCanvas.Children.Add(NewEnemyTop);
-                    break;
+					break;
 
 				case 2:
 					Rectangle NewEnemyBottom = new Rectangle
@@ -509,15 +559,15 @@ namespace PlaceholderGame
 					MyCanvas.Children.Add(NewEnemyBottom);
 					break;
 
-            }
+			}
 
 			GC.Collect();
 
-        }
-        #endregion
+		}
+		#endregion
 
 		#region Player1Shoot
-        private async void Player1Shoot()
+		private async void Player1Shoot()
 		{
 			Player1CanShoot = false;
 
@@ -542,10 +592,10 @@ namespace PlaceholderGame
 			Player1CanShoot = true;
 
 		}
-        #endregion
+		#endregion
 
-        #region Player2Shoot
-        private async void Player2Shoot()
+		#region Player2Shoot
+		private async void Player2Shoot()
 		{
 			Player2CanShoot = false;
 
@@ -569,18 +619,18 @@ namespace PlaceholderGame
 
 			Player2CanShoot = true;
 		}
-        #endregion
+		#endregion
 
-        #region Asteroid Spawning
-        private void EnemyAsteroid(int Spawn)
+		#region Asteroid Spawning
+		private void EnemyAsteroid(int Spawn)
 		{
 			ImageBrush Asteroid = new ImageBrush();
 			Asteroid.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/asteroid.png"));
 
-			int AsteroidDirection = rand.Next(1,3);
+			int AsteroidDirection = rand.Next(1, 3);
 			if (Spawn == 3)
-			{ 
-				switch(AsteroidDirection)
+			{
+				switch (AsteroidDirection)
 				{
 					case 1:
 						Rectangle AsteroidLinks = new Rectangle
@@ -617,6 +667,6 @@ namespace PlaceholderGame
 		}
 		#endregion
 
-    }
+	}
 
 }
