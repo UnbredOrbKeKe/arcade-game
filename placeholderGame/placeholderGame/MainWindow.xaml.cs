@@ -93,6 +93,7 @@ namespace PlaceholderGame
 			player2.Fill = player2Image;
 
 		}
+		#region EndgameButton
 		private void Menu_Click(object sender, RoutedEventArgs e)
 		{
 			placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu
@@ -101,7 +102,9 @@ namespace PlaceholderGame
 			};
 			Close();
 		}
+		#endregion
 
+		#region MusicMute_button
 		private void muteMusic(object sender, RoutedEventArgs e)
 		{
 			if (musicMute.IsChecked == true)
@@ -113,6 +116,9 @@ namespace PlaceholderGame
 				music.Play();
 			}
 		}
+		#endregion
+
+		#region Timer
 		private int increment = 120;
 		private void Dt_Tick(object sender, EventArgs e)
 		{
@@ -129,7 +135,7 @@ namespace PlaceholderGame
 				exit.Visibility = Visibility.Visible;
 			}
 		}
-
+		#endregion
 
 		#region GameEngine
 		public void GameEngine(object sender, EventArgs e)
