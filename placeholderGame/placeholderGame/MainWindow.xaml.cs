@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 using System.Windows.Threading; // add this for the timer
 
@@ -34,7 +35,6 @@ namespace PlaceholderGame
 		
 		private int player1Speed = 10;
 		private int player2Speed = 10;
-		private int limit = 50;
 		public int score1 = 0;
 		public int score2 = 0;
 
@@ -91,9 +91,11 @@ namespace PlaceholderGame
 			ImageBrush player2Image = new ImageBrush();
 			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
 			player2.Fill = player2Image;
+			
+			
 
 		}
-		private int increment = 120;
+		private int increment = 10;
 		private void Dt_Tick(object sender, EventArgs e)
 		{
 			increment--;
@@ -109,7 +111,7 @@ namespace PlaceholderGame
 				exit.Visibility = Visibility.Visible;
 			}
 		}
-
+		
 
 		public void GameEngine(object sender, EventArgs e)
 		{
@@ -174,6 +176,7 @@ namespace PlaceholderGame
 					}
 				}
 			}
+			
 
 
 			
@@ -262,6 +265,18 @@ namespace PlaceholderGame
 				Visibility = Visibility.Visible
 			};
 			Close();
+		}
+
+		private void muteMusic(object sender, RoutedEventArgs e)
+		{
+			if (musicMute.IsChecked == true)
+			{
+				music.Pause();
+			}
+			else
+			{
+				music.Play();
+			}
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)

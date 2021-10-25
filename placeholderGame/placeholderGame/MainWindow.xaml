@@ -87,7 +87,7 @@
             Width="458" 
             Canvas.Top="314" 
             HorizontalAlignment="Center" Panel.ZIndex="2" />
-        
+
         <Button     x:Name="exit"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
@@ -101,5 +101,24 @@
                 <SolidColorBrush Color="White" Opacity="0.2"/>
             </Button.Background>
         </Button>
+
+        <CheckBox x:Name="musicMute" 
+                  Content="Mute music" 
+                  FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                  FontSize="15"  
+                  Foreground="White" 
+                  BorderBrush="White" 
+                  Canvas.Left="859" 
+                  Canvas.Top="10" 
+                  Height="17" 
+                  Width="122" 
+                  Panel.ZIndex="4" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center"
+                  Checked="muteMusic"
+                  Unchecked="muteMusic"
+                  Focusable="False"
+                  />
+
     </Canvas>
 </Window>
