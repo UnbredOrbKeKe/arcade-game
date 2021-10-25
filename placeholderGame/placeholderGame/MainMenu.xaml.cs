@@ -32,7 +32,8 @@ namespace placeholderGame
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-
+            OptionsMenu optionsMenu = new OptionsMenu();
+            optionsMenu.Visibility = Visibility.Visible;
         }
         private void Leaderboards_Click(object sender, RoutedEventArgs e)
         {

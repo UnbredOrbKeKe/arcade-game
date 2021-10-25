@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace placeholderGame
+{
+    /// <summary>
+    /// Interaction logic for OptionsMenu.xaml
+    /// </summary>
+    public partial class OptionsMenu : Window
+    {
+        public OptionsMenu()
+        {
+            InitializeComponent();
+        }
+        private void Volume_Click(object sender, RoutedEventArgs e)
+        {
+            if (VolumeButton.Content == "ON")
+            {
+                VolumeButton.Content = "OFF";
+            }
+            else if (VolumeButton.Content == "OFF")
+            {
+                VolumeButton.Content = "ON";
+            }
+        }
+    }
+}
