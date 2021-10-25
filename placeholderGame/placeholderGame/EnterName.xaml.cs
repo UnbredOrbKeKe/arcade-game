@@ -19,6 +19,9 @@ namespace placeholderGame
     /// </summary>
     public partial class EnterName : Window
     {
+        public static string player1Name;
+        public static string player2Name;
+
         public EnterName()
         {
             InitializeComponent();
@@ -35,7 +38,7 @@ namespace placeholderGame
              
       
 
-        private async void Start_Click(object sender, RoutedEventArgs e)
+        public async void Start_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(PlayerName1.Text) || String.IsNullOrEmpty(PlayerName1.Text))
             {
@@ -46,8 +49,8 @@ namespace placeholderGame
 
             else
             {
-                //player1Name = PlayerName1.Text;
-                //player2Name = PlayerName2.Text;
+                player1Name = PlayerName1.Text;
+                player2Name = PlayerName2.Text;
 
                 PlaceholderGame.MainWindow gameWindow = new PlaceholderGame.MainWindow
                 {

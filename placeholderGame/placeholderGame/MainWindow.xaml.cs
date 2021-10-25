@@ -65,8 +65,8 @@ namespace PlaceholderGame
 			exit.IsEnabled = false;
 			exit.Visibility = Visibility.Hidden;
 
-            //Player1Name.Content = player1Name;
-            //Player2Name.Content = player2Name;
+            Player1Name.Content = placeholderGame.EnterName.player1Name;
+            Player2Name.Content = placeholderGame.EnterName.player2Name;
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 			gameTimer.Tick += new EventHandler(GameEngine);
