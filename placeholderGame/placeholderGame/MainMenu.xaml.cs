@@ -26,7 +26,7 @@ namespace placeholderGame
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-			PlaceholderGame.MainWindow gameWindow = new PlaceholderGame.MainWindow
+			placeholderGame.MainWindow gameWindow = new placeholderGame.MainWindow
 			{
 				Visibility = Visibility.Visible
 			};
@@ -39,7 +39,11 @@ namespace placeholderGame
         }
         private void Leaderboards_Click(object sender, RoutedEventArgs e)
         {
-
+            placeholderGame.Leaderboard leaderborad = new placeholderGame.Leaderboard
+            {
+                Visibility = Visibility.Visible
+            };
+            Close();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
