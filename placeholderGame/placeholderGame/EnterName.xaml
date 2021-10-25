@@ -1,0 +1,123 @@
+﻿<Window x:Class="placeholderGame.EnterName"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:placeholderGame"
+        mc:Ignorable="d"
+        Title="EnterPlayerNames" Height="720" Width="1280">
+    <Canvas Name="MyCanvas" Focusable="True" Background="Black" Height="720" Margin="0,0,-8,-31">
+
+        <Rectangle x:Name ="player1" 
+                   Height="60" 
+                   Width="50" 
+                   Fill="Yellow" 
+                   Canvas.Left="1205" 
+                   Canvas.Top="360" 
+                   RenderTransformOrigin="0.5,0.5" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center">
+            <Rectangle.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.LayoutTransform>
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Rectangle x:Name ="player2" 
+                   Height="60" 
+                   Width="50" 
+                   Fill="Green" 
+                   Canvas.Left="18" 
+                   Canvas.Top="360" 
+                   RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Button     VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="START GAME"
+                    FontSize="40" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    BorderBrush="White" 
+                    Click="Start_Click" 
+                    Canvas.Left="504" 
+                    Canvas.Top="360">
+            <Button.Background>
+                <SolidColorBrush Color="White" 
+                                 Opacity="0.2"/>
+            </Button.Background>
+        </Button>
+        <Label Canvas.Left="18" 
+                 Canvas.Top="310"
+                 FontSize="15" 
+                 Foreground="White" 
+                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 BorderBrush="White"
+                 Content="Enter your name player 1!"/>
+
+        <TextBox Canvas.Left="18" 
+                 Canvas.Top="337"
+                 x:Name="PlayerName1"
+                 FontSize="15" 
+                 Foreground="White" 
+                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 BorderBrush="White"
+                 Width="200" 
+                 MaxLength="15">
+
+            <TextBox.Background>
+                <SolidColorBrush Color="White" 
+                                 Opacity="0.2"/>
+            </TextBox.Background>
+        </TextBox>
+
+        <Label Canvas.Left="1025" 
+               Canvas.Top="310"
+               FontSize="15" 
+               Foreground="White" 
+               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+               Content="Enter your name player 2!" />
+
+        <TextBox Canvas.Left="1055" 
+                 Canvas.Top="337"
+                 x:Name="PlayerName2"
+                 FontSize="15"
+                 Foreground="White" 
+                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 BorderBrush="White" 
+                 Width="200"
+                 MaxLength="15">
+
+            <TextBox.Background>
+                <SolidColorBrush Color="White" 
+                                 Opacity="0.2"/>
+            </TextBox.Background>
+        </TextBox>
+
+        <Label x:Name="EnterAName"
+               Canvas.Left="290" 
+               Canvas.Top="227"
+               FontSize="40" 
+               Foreground="red" 
+               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+               Content="Please enter your names first!" />
+    </Canvas>
+</Window>

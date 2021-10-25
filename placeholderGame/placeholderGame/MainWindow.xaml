@@ -118,8 +118,25 @@
                   Checked="muteMusic"
                   Unchecked="muteMusic"
                   Focusable="False"
-                  />
+        />
 
+        <Label x:Name="Player2Name"
+               Canvas.Left="1110" 
+               Canvas.Top="34"
+               FontSize="15" 
+               Foreground="Orange" 
+               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+               Content="Playername" />
+
+        <Label x:Name="Player1Name"
+                 
+                 Canvas.Left="10" 
+                 Canvas.Top="34"
+                 FontSize="15" 
+                 Foreground="Aqua" 
+                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 BorderBrush="White"
+                 Content="Playername"/>
 
     </Canvas>
 </Window>

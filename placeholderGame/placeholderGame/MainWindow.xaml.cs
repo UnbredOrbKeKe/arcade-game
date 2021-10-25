@@ -57,7 +57,7 @@ namespace PlaceholderGame
 		private int EnemySpawnCount = 100;
 		private const int EnemySpeed = 10;
 
-
+		
 
 		public MainWindow()
 		{
@@ -65,7 +65,10 @@ namespace PlaceholderGame
 			exit.IsEnabled = false;
 			exit.Visibility = Visibility.Hidden;
 
-			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+            //Player1Name.Content = player1Name;
+            //Player2Name.Content = player2Name;
+
+            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 			gameTimer.Tick += new EventHandler(GameEngine);
 			gameTimer.Start();
 			MyCanvas.Focus();
