@@ -52,7 +52,7 @@ namespace placeholderGame
                 player1Name = PlayerName1.Text;
                 player2Name = PlayerName2.Text;
 
-                PlaceholderGame.MainWindow gameWindow = new PlaceholderGame.MainWindow
+                placeholderGame.MainWindow gameWindow = new placeholderGame.MainWindow
                 {
                     Visibility = Visibility.Visible
                 };
