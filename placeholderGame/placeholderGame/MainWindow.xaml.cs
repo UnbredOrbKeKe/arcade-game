@@ -17,7 +17,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Threading; // add this for the timer
 
-namespace PlaceholderGame
+namespace placeholderGame
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
