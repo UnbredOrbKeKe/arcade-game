@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:placeholderGame"
         mc:Ignorable="d"
-        Title="Space Shooter 1v1" WindowState="Normal" WindowStyle="SingleBorderWindow" Background="black">
+        Title="Space Shooter 1v1" WindowState="Maximized" WindowStyle="SingleBorderWindow" Background="black">
 
     <Canvas Name="MyCanvas" Focusable="True" Background="Black" KeyDown="OnKeyDown" KeyUp="OnKeyUp" Width="1280" Height="720">
 

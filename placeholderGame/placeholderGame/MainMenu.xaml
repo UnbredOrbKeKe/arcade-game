@@ -5,13 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:placeholderGame"
         mc:Ignorable="d"
-        Title="MainMenu" Height="720" Width="1280">
-    <Window.Background>
-        <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
-    </Window.Background>
-    
+        Title="MainMenu" Height="720" Width="1280" WindowState="Maximized" Background="Black">
+    <Canvas Name="MyCanvas" Focusable="True" Background="Black" Width="1280" Height="720">
 
-    <Grid>
+        <Grid Height="720" Width="1280">
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
             <RowDefinition Height="100"/>
@@ -136,4 +133,5 @@
                     Click="Help_Click"/>
         </Grid>
     </Grid>
+    </Canvas>
 </Window>

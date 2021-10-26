@@ -22,6 +22,12 @@ namespace placeholderGame
         public MainMenu()
         {
             InitializeComponent();
+            ImageBrush bg = new ImageBrush();
+            bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
+            bg.TileMode = TileMode.Tile;
+            bg.Viewport = new Rect(0, 0, 1, 1);
+            bg.ViewboxUnits = BrushMappingMode.RelativeToBoundingBox;
+            MyCanvas.Background = bg;
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
