@@ -28,5 +28,13 @@ namespace placeholderGame
         {
 
         }
+        private void BacktoMenu_Click(object sender, RoutedEventArgs e)
+        {
+            placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu
+            {
+                Visibility = Visibility.Visible
+            };
+            Close();
+        }
     }
 }
