@@ -40,34 +40,33 @@
                     <SolidColorBrush Color="White" Opacity="0.2"/>
                 </Button.Background>
             </Button>
-            <Label Grid.Row="0" Grid.Column="2" Content="PLAYERS:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Button Grid.Column="0" Grid.Row="7"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="REFRESH"
+                    FontSize="40" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    BorderBrush="White" 
+                    Click="Refresh_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="White" Opacity="0.2"/>
+                </Button.Background>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="2" Content="PLAYERS:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Margin="48,10" Width="204"/>
+
+            <Label Grid.Row="0" Grid.Column="3" Content="SCORE:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Margin="76,10" Width="148"/>
+            <StackPanel Grid.Row="1" Grid.Column="2" x:Name="HighScoresPanel1" Grid.RowSpan="8">
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="3" x:Name="HighScoresPanel2" Grid.RowSpan="8">
+
+            </StackPanel>
+
             
-            <Label Grid.Row="0" Grid.Column="3" Content="SCORE:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            
-            <Label x:Name="player1" Grid.Row="1" Grid.Column="2" Content="player1" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player1Score" Grid.Row="1" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player2" Grid.Row="2" Grid.Column="2" Content="player2" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player2Score" Grid.Row="2" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player3" Grid.Row="3" Grid.Column="2" Content="player3" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player3Score" Grid.Row="3" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player4" Grid.Row="4" Grid.Column="2" Content="player4" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player4Score" Grid.Row="4" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player5" Grid.Row="5" Grid.Column="2" Content="player5" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player5Score" Grid.Row="5" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player6" Grid.Row="6" Grid.Column="2" Content="player6" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player6Score" Grid.Row="6" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player7" Grid.Row="7" Grid.Column="2" Content="player7" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player7Score" Grid.Row="7" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Label x:Name="player8" Grid.Row="8" Grid.Column="2" Content="player8" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label x:Name="player8Score" Grid.Row="8" Grid.Column="3" Content="score" FontSize="30" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
         </Grid>
         <Rectangle Width="600" Height="669" Canvas.Left="348"  Fill="#33FFFFFF" Stroke="white" StrokeThickness="1"/>
         <Rectangle Width="1" Height="668" Canvas.Left="645"  Stroke="white" StrokeThickness="1" RenderTransformOrigin="0.5,0.5">

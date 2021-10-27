@@ -31,11 +31,13 @@ namespace placeholderGame
 
 		Random rand = new Random();
 
+		
+
 
 		int player1Speed = 10;
 		int player2Speed = 10;
-		int score1 = 0;
-		int score2 = 0;
+		public static int score1 = 0;
+		public static int score2 = 0;
 
 		int Player1ShootDelay = 250;
 		int Player2ShootDelay = 250;
@@ -136,6 +138,9 @@ namespace placeholderGame
 
 				exit.IsEnabled = true;
 				exit.Visibility = Visibility.Visible;
+
+				//highScores.Add(placeholderGame.EnterName.player1Name, score1);
+				//highScores.Add(placeholderGame.EnterName.player2Name, score2);
 			}
 		}
 		#endregion

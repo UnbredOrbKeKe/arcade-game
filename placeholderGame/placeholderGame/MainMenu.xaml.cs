@@ -32,7 +32,7 @@ namespace placeholderGame
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-			placeholderGame.MainWindow gameWindow = new placeholderGame.MainWindow
+			placeholderGame.EnterName gameWindow = new placeholderGame.EnterName
 			{
 				Visibility = Visibility.Visible
 			};
