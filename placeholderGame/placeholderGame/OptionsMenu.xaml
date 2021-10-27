@@ -10,18 +10,73 @@
         <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
     </Window.Background>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="250"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="50"/>
 
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Label VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       Content="PlaceHolder" 
+                       FontSize="50"
+                       Foreground="White" 
+                       FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       HorizontalContentAlignment="Center" 
+                       VerticalContentAlignment="Center"
+                       Content="VOLUME:"
+                       FontSize="40" 
+                       Foreground="White" 
+                       FontFamily="/placeholderGame;component/Fonts/#Square Galaxy">
+                </Label>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Slider Grid.Column="1"
+                        Maximum="100" 
+                        TickPlacement="BottomRight" 
+                        TickFrequency="10" 
+                        IsSnapToTickEnabled="True" ValueChanged="Slider_Volume">
+                </Slider>
+            </Grid>
+            <Grid Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="BACK"
+                        FontSize="40"
+                        Foreground="White"
+                        FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                        Click="BacktoMenu_Click">
+                    <Button.Background>
+                        <SolidColorBrush Color="White" Opacity="0.2"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

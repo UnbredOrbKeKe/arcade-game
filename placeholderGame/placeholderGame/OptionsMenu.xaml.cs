@@ -23,16 +23,10 @@ namespace placeholderGame
         {
             InitializeComponent();
         }
-        private void Volume_Click(object sender, RoutedEventArgs e)
+
+        private void Slider_Volume(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (VolumeButton.Content == "ON")
-            {
-                VolumeButton.Content = "OFF";
-            }
-            else if (VolumeButton.Content == "OFF")
-            {
-                VolumeButton.Content = "ON";
-            }
+
         }
     }
 }
