@@ -40,14 +40,14 @@ namespace placeholderGame
 
         public async void Start_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(PlayerName1.Text) || String.IsNullOrEmpty(PlayerName1.Text))
+            if (String.IsNullOrEmpty(PlayerName1.Text) || String.IsNullOrEmpty(PlayerName2.Text))
             {
                 EnterAName.Visibility = Visibility.Visible;
                 await Task.Delay(2000);
                 EnterAName.Visibility = Visibility.Hidden;
             }
 
-            else
+            else 
             {
                 player1Name = PlayerName1.Text;
                 player2Name = PlayerName2.Text;

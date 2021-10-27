@@ -37,6 +37,23 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
+
+        <Rectangle x:Name="PowerUp2"
+                   Panel.ZIndex="2"
+                   Fill="blue"
+                   Height="40"
+                   Width="50" 
+                   Canvas.Left="180" 
+                   Canvas.Top="10"></Rectangle>
+
+        <Rectangle x:Name="PowerUp1"
+                   Panel.ZIndex="2"
+                   Fill="blue"
+                   Height="40"
+                   Width="50" 
+                   Canvas.Top="10" 
+                   Canvas.Left="1046"></Rectangle>
+
         <Label 
             x:Name="scoreText1" 
             Content="Score: 0" 
@@ -73,7 +90,7 @@
             Width="180" 
             Canvas.Top="-5" 
             HorizontalAlignment="Center" Panel.ZIndex="2" />
-        
+
 
         <Label 
             x:Name="gameover" 
@@ -86,7 +103,7 @@
             Canvas.Left="401" 
             Height="106" 
             Width="458" 
-            Canvas.Top="314" 
+            Canvas.Top="130" 
             HorizontalAlignment="Center" Panel.ZIndex="2" />
 
         <Button     x:Name="exit"
@@ -97,7 +114,61 @@
                     Foreground="White" 
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     BorderBrush="White" 
-                    Click="Menu_Click" Canvas.Left="528" Canvas.Top="450">
+                    Click="Exit_Click" 
+                    Canvas.Left="528" 
+                    Canvas.Top="368"
+                    Panel.ZIndex="2">
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.2"/>
+            </Button.Background>
+        </Button>
+
+        <Button     x:Name="ReturnToMenu"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="RETURN TO MENU"
+                    FontSize="40" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    BorderBrush="White" 
+                    Click="Menu_Click" 
+                    Canvas.Left="528" 
+                    Canvas.Top="295"
+                    Panel.ZIndex="2">
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.2"/>
+            </Button.Background>
+        </Button>
+
+        <Button     x:Name="Reset"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="RESET"
+                    FontSize="40" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    BorderBrush="White" 
+                    Click="Reset_Click" 
+                    Canvas.Left="528" 
+                    Canvas.Top="435"
+                    Panel.ZIndex="2">
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.2"/>
+            </Button.Background>
+        </Button>
+
+        <Button     x:Name="pause"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="PAUSE GAME"
+                    FontSize="20" 
+                    Foreground="White" 
+                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"                     
+                    Click="Pause_Click" 
+                    Canvas.Left="274" 
+                    Canvas.Top="6"
+                    Panel.ZIndex="2"
+                    Focusable="False">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.2"/>
             </Button.Background>

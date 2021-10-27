@@ -161,6 +161,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Resource Include="images\FastFire.png" />
     <Content Include="music\FZero_Mute_City_8bit.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
