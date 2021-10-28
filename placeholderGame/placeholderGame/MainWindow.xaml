@@ -30,7 +30,7 @@
             </Rectangle.RenderTransform>
         </Rectangle>
 
-        <Rectangle x:Name="PowerUp2"
+        <Rectangle x:Name="PowerUp1"
                    Panel.ZIndex="2"
                    Fill="blue"
                    Height="40"
@@ -38,7 +38,7 @@
                    Canvas.Left="180" 
                    Canvas.Top="10"></Rectangle>
 
-        <Rectangle x:Name="PowerUp1"
+        <Rectangle x:Name="PowerUp2"
                    Panel.ZIndex="2"
                    Fill="blue"
                    Height="40"
@@ -98,6 +98,34 @@
             Canvas.Top="130" 
             HorizontalAlignment="Center" Panel.ZIndex="2" />
 
+        <Label 
+            x:Name="Player1Wins" 
+            FontSize="36" 
+            FontWeight="Bold" 
+            Content=""
+            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            VerticalAlignment="Center" 
+            Foreground="Aqua" 
+            Canvas.Left="18" 
+            Height="50" 
+            Width="300" 
+            Canvas.Top="238" 
+            HorizontalAlignment="Center" Panel.ZIndex="2" />
+
+        <Label 
+            x:Name="Player2Wins" 
+            FontSize="36" 
+            FontWeight="Bold" 
+            Content=""
+            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            VerticalAlignment="Center" 
+            Foreground="Orange" 
+            Canvas.Left="998" 
+            Height="50" 
+            Width="300" 
+            Canvas.Top="238" 
+            HorizontalAlignment="Center" Panel.ZIndex="2" />
+
         <Button     x:Name="exit"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
@@ -107,8 +135,8 @@
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     BorderBrush="White" 
                     Click="Exit_Click" 
-                    Canvas.Left="528" 
-                    Canvas.Top="368"
+                    Canvas.Left="512" 
+                    Canvas.Top="325"
                     Panel.ZIndex="2">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.2"/>
@@ -124,8 +152,8 @@
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     BorderBrush="White" 
                     Click="Menu_Click" 
-                    Canvas.Left="528" 
-                    Canvas.Top="295"
+                    Canvas.Left="452" 
+                    Canvas.Top="253"
                     Panel.ZIndex="2">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.2"/>
@@ -141,8 +169,8 @@
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     BorderBrush="White" 
                     Click="Reset_Click" 
-                    Canvas.Left="528" 
-                    Canvas.Top="435"
+                    Canvas.Left="552" 
+                    Canvas.Top="391"
                     Panel.ZIndex="2">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.2"/>
