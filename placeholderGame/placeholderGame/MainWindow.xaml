@@ -9,7 +9,7 @@
 
     <Canvas Name="MyCanvas" Focusable="True" Background="Black" KeyDown="OnKeyDown" KeyUp="OnKeyUp" Width="1280" Height="720">
 
-        <Rectangle x:Name ="player1" Height="60" Width="50" Fill="Yellow" Canvas.Left="1205" Canvas.Top="360" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Rectangle x:Name ="player2" Height="60" Width="50" Fill="Yellow" Canvas.Left="1205" Canvas.Top="360" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.LayoutTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -18,16 +18,8 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Rectangle.LayoutTransform>
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Rectangle.RenderTransform>
         </Rectangle>
-        <Rectangle x:Name ="player2" Height="60" Width="50" Fill="Green" Canvas.Left="18" Canvas.Top="360" RenderTransformOrigin="0.5,0.5">
+        <Rectangle x:Name ="player1" Height="60" Width="50" Fill="LightBlue" Canvas.Left="18" Canvas.Top="360" RenderTransformOrigin="0.5,0.5">
             <Rectangle.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -38,7 +30,7 @@
             </Rectangle.RenderTransform>
         </Rectangle>
         <Label 
-            x:Name="scoreText1" 
+            x:Name="scoreText2" 
             Content="Score: 0" 
             FontSize="30" 
             FontWeight="Bold" 
@@ -49,7 +41,7 @@
             VerticalAlignment="Center" Canvas.Top="-5" Width="170" Panel.ZIndex="2"/>
 
         <Label 
-            x:Name="scoreText2" 
+            x:Name="scoreText1" 
             Content="Score: 0" 
             FontSize="30" 
             FontWeight="Bold" 

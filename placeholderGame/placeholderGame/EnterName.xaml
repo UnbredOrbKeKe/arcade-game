@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:placeholderGame"
         mc:Ignorable="d"
-        Title="EnterPlayerNames" Height="720" Width="1280">
-    <Canvas Name="MyCanvas" Focusable="True" Background="Black" Height="720" Margin="0,0,-8,-31">
+        Title="EnterPlayerNames" Height="720" Width="1280" WindowState="Maximized" Background="Black">
+    <Canvas Name="MyCanvas" Focusable="True" Background="Black" Height="720" Width="1280" Margin="0,0,-8,-31" >
 
         <Rectangle x:Name ="player1" 
                    Height="60" 
@@ -65,23 +65,23 @@
                                  Opacity="0.2"/>
             </Button.Background>
         </Button>
-        <Label Canvas.Left="18" 
-                 Canvas.Top="310"
-                 FontSize="15" 
+        <Label Canvas.Left="12" 
+                 Canvas.Top="283"
+                 FontSize="25" 
                  Foreground="White" 
                  FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                  BorderBrush="White"
-                 Content="Enter your name player 1!"/>
+                 Content="Enter your name player 1!" Width="368"/>
 
-        <TextBox Canvas.Left="18" 
-                 Canvas.Top="337"
+        <TextBox Canvas.Left="12" 
+                 Canvas.Top="322"
                  x:Name="PlayerName1"
                  FontSize="15" 
                  Foreground="White" 
                  FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                  BorderBrush="White"
-                 Width="200" 
-                 MaxLength="15">
+                 Width="343" 
+                 MaxLength="15" Height="23">
 
             <TextBox.Background>
                 <SolidColorBrush Color="White" 
@@ -89,22 +89,22 @@
             </TextBox.Background>
         </TextBox>
 
-        <Label Canvas.Left="1025" 
-               Canvas.Top="310"
-               FontSize="15" 
+        <Label Canvas.Left="894" 
+               Canvas.Top="283"
+               FontSize="25" 
                Foreground="White" 
                FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
-               Content="Enter your name player 2!" />
+               Content="Enter your name player 2!" Width="376" />
 
-        <TextBox Canvas.Left="1055" 
-                 Canvas.Top="337"
+        <TextBox Canvas.Left="915" 
+                 Canvas.Top="322"
                  x:Name="PlayerName2"
                  FontSize="15"
                  Foreground="White" 
                  FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                  BorderBrush="White" 
-                 Width="200"
-                 MaxLength="15">
+                 Width="355"
+                 MaxLength="15" Height="23">
 
             <TextBox.Background>
                 <SolidColorBrush Color="White" 

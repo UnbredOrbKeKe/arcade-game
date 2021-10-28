@@ -16,6 +16,8 @@ using System.Media;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Threading; // add this for the timer
+using System.Data.SqlClient;
+using System.Data;
 
 namespace placeholderGame
 {
@@ -36,8 +38,8 @@ namespace placeholderGame
 
 		int player1Speed = 10;
 		int player2Speed = 10;
-		public static int score1 = 0;
-		public static int score2 = 0;
+		public int score1 = 0;
+		public int score2 = 0;
 
 		int Player1ShootDelay = 250;
 		int Player2ShootDelay = 250;
@@ -59,7 +61,9 @@ namespace placeholderGame
 		private int EnemySpawnCount = 100;
 		private const int EnemySpeed = 10;
 
-		
+		private int increment = 30;
+
+		public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
 
 		public MainWindow()
 		{
@@ -90,12 +94,12 @@ namespace placeholderGame
 			MyCanvas.Background = bg;
 
 
-			ImageBrush player1Image = new ImageBrush();
-			player1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_orange.png"));
-			player1.Fill = player1Image;
 			ImageBrush player2Image = new ImageBrush();
-			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
+			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_orange.png"));
 			player2.Fill = player2Image;
+			ImageBrush player1Image = new ImageBrush();
+			player1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
+			player1.Fill = player1Image;
 
 		}
 		#region EndgameButton
@@ -124,7 +128,6 @@ namespace placeholderGame
 		#endregion
 
 		#region Timer
-		private int increment = 120;
 		private void Dt_Tick(object sender, EventArgs e)
 		{
 			increment--;
@@ -139,11 +142,47 @@ namespace placeholderGame
 				exit.IsEnabled = true;
 				exit.Visibility = Visibility.Visible;
 
-				//highScores.Add(placeholderGame.EnterName.player1Name, score1);
-				//highScores.Add(placeholderGame.EnterName.player2Name, score2);
+				SetHighScores();
+
 			}
 		}
 		#endregion
+
+		private void SetHighScores()
+		{
+			
+
+			string query1 = "INSERT INTO [Highscores] ([PlayerName],[Score]) VALUES ('" + EnterName.player1Name + "','" + score1 + "')";
+			string query2 = "INSERT INTO [Highscores] ([PlayerName],[Score]) VALUES ('" + EnterName.player2Name + "','" + score2 + "')";
+
+			SqlConnection connection = new SqlConnection(connectionString);
+
+			SqlCommand command = new SqlCommand();
+
+			try
+			{
+				//add player1 score
+				command.CommandText = query1;
+				command.CommandType = CommandType.Text;
+				command.Connection = connection;
+				connection.Open();
+				command.ExecuteNonQuery();
+				connection.Close();
+				//add player2 score
+				command.CommandText = query2;
+				command.CommandType = CommandType.Text;
+				command.Connection = connection;
+				connection.Open();
+				command.ExecuteNonQuery();
+				connection.Close();
+
+			}
+			catch (Exception e)
+			{
+				connection.Close();
+				MessageBox.Show(e.Message);
+			}
+		}
 
 		#region GameEngine
 		public void GameEngine(object sender, EventArgs e)
@@ -151,8 +190,8 @@ namespace placeholderGame
 			scoreText1.Content = "Score: " + score1;
 			scoreText2.Content = "Score: " + score2;
 
-			Rect player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height); //hitbox player rechts
-			Rect player2HitBox = new Rect(Canvas.GetLeft(player2), Canvas.GetTop(player2), player2.Width, player2.Height); //hitbox player links
+			Rect player2HitBox = new Rect(Canvas.GetLeft(player2), Canvas.GetTop(player2), player2.Width, player2.Height); //hitbox player rechts
+			Rect player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height); //hitbox player links
 
 			EnemyAsteroid(rand.Next(1, 51));
 
@@ -180,13 +219,13 @@ namespace placeholderGame
 				if (x is Rectangle && (string)x.Tag == "bullet2")
 				{
 
-					Canvas.SetLeft(x, Canvas.GetLeft(x) + 20);
+					Canvas.SetLeft(x, Canvas.GetLeft(x) - 20);
 
 
 					Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
 
-					if (Canvas.GetLeft(x) < 10)
+					if (Canvas.GetLeft(x) < 0)
 					{
 						itemstoremove.Add(x);
 					}
@@ -271,13 +310,13 @@ namespace placeholderGame
 				if (x is Rectangle && (string)x.Tag == "bullet1")
 				{
 
-					Canvas.SetLeft(x, Canvas.GetLeft(x) - 20);
+					Canvas.SetLeft(x, Canvas.GetLeft(x) + 20);
 
 
 					Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
 
-					if (Canvas.GetLeft(x) < 10)
+					if (Canvas.GetLeft(x) > 1280)
 					{
 
 						itemstoremove.Add(x);
@@ -388,11 +427,11 @@ namespace placeholderGame
 						itemstoremove.Add(x);
 					}
 
-					if (asteroid.IntersectsWith(player1HitBox))
+					if (asteroid.IntersectsWith(player2HitBox))
 					{
 						itemstoremove.Add(x);
-						Player1CanShoot = false;
-						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
+						Player2CanShoot = false;
+						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
 
 					}
 				}
@@ -410,10 +449,10 @@ namespace placeholderGame
 						itemstoremove.Add(x);
 					}
 
-					if (asteroid.IntersectsWith(player2HitBox))
+					if (asteroid.IntersectsWith(player1HitBox))
 					{
 						itemstoremove.Add(x);
-						Player2CanShoot = false;
+						Player1CanShoot = false;
 						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
 
 					}
@@ -440,20 +479,20 @@ namespace placeholderGame
 		{
 			if (e.Key == Key.Up)
 			{
-				moveLeft1 = true;
+				moveLeft2 = true;
 			}
 			if (e.Key == Key.Down)
 			{
-				moveRight1 = true;
+				moveRight2 = true;
 			}
 
 			if (e.Key == Key.W)
 			{
-				moveLeft2 = true;
+				moveLeft1 = true;
 			}
 			if (e.Key == Key.S)
 			{
-				moveRight2 = true;
+				moveRight1 = true;
 			}
 
 
@@ -465,31 +504,31 @@ namespace placeholderGame
 		{
 			if (e.Key == Key.Up)
 			{
-				moveLeft1 = false;
-			}
-			if (e.Key == Key.Down)
-			{
-				moveRight1 = false;
-			}
-
-			if (e.Key == Key.W)
-			{
 				moveLeft2 = false;
 			}
-			if (e.Key == Key.S)
+			if (e.Key == Key.Down)
 			{
 				moveRight2 = false;
 			}
 
-			if (e.Key == Key.RightShift && Player1CanShoot == true)
+			if (e.Key == Key.W)
 			{
-				Player1Shoot();
+				moveLeft1 = false;
+			}
+			if (e.Key == Key.S)
+			{
+				moveRight1 = false;
+			}
+
+			if (e.Key == Key.RightShift && Player2CanShoot == true)
+			{
+				Player2Shoot();
 
 			}
 
-			if (e.Key == Key.Space && Player2CanShoot == true)
+			if (e.Key == Key.Space && Player1CanShoot == true)
 			{
-				Player2Shoot();
+				Player1Shoot();
 			}
 
 		}
@@ -597,7 +636,7 @@ namespace placeholderGame
 
 			Canvas.SetTop(newBullet, Canvas.GetTop(player1) + player1.Height / 2);
 
-			Canvas.SetLeft(newBullet, Canvas.GetLeft(player1) - newBullet.Width);
+			Canvas.SetLeft(newBullet, Canvas.GetLeft(player1) + player1.Width);
 
 			MyCanvas.Children.Add(newBullet);
 
@@ -625,7 +664,7 @@ namespace placeholderGame
 
 			Canvas.SetTop(newBullet, Canvas.GetTop(player2) + player2.Height / 2);
 
-			Canvas.SetLeft(newBullet, newBullet.Width + Canvas.GetLeft(player2) + player2.Width);
+			Canvas.SetLeft(newBullet, Canvas.GetLeft(player2) - newBullet.Width);
 
 			MyCanvas.Children.Add(newBullet);
 
