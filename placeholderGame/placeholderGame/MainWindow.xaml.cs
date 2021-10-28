@@ -43,7 +43,7 @@ namespace placeholderGame
 		int Player2ShootDelay = 250;
 		int PlayerDisableShootTime = 5000;
 
-		int PowerUpTime = 3000;
+		int PowerUpTime = 10000;
 
 		bool Player1CanShoot = true;
 		bool Player2CanShoot = true;
@@ -586,6 +586,7 @@ namespace placeholderGame
 					break;
 
 				case 2:
+					
 					Rectangle NewEnemyBottom = new Rectangle
 					{
 						Tag = "EnemyBottom",
@@ -594,9 +595,16 @@ namespace placeholderGame
 						Fill = EnemyType
 					};
 
+					RotateTransform OneEightyDegrees = new RotateTransform(180);
+					OneEightyDegrees.CenterX = Dimension/2;
+					OneEightyDegrees.CenterY = Dimension/2;
+
+					NewEnemyBottom.RenderTransform = OneEightyDegrees;
+
 					Canvas.SetTop(NewEnemyBottom, 820);
 					Canvas.SetLeft(NewEnemyBottom, rand.Next(400, 880));
 					MyCanvas.Children.Add(NewEnemyBottom);
+
 					break;
 
 			}
