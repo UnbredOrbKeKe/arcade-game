@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace placeholderGame
 {
@@ -27,16 +29,7 @@ namespace placeholderGame
 		public Leaderboard()
 		{
 			InitializeComponent();
-			
-			highScores.Add("asdf", rand.Next(1, 700));
-			highScores.Add("fghj", rand.Next(1, 700));
-			highScores.Add("assertdf", rand.Next(1, 700));
-			highScores.Add("asjosdirtdf", rand.Next(1, 700));
-			highScores.Add("ahuwersdf", rand.Next(1, 700));
-			highScores.Add("ezsdf", rand.Next(1, 700));
-			highScores.Add("pz", rand.Next(1, 700));
-			highScores.Add("asdzdf", rand.Next(1, 700));
-
+			highScores.Clear();
 			GetHighscores();
 			CreateLables();
 			ImageBrush bg = new ImageBrush();
@@ -66,10 +59,33 @@ namespace placeholderGame
 		private void GetHighscores()
 		{
 			//get highscores from database
+			highScores.Clear();
+
+			string GetLeaderboard = "SELECT PlayerName,Score FROM dbo.Highscores;";
+
+
+			using (SqlConnection connection = new SqlConnection(MainWindow.connectionString))
+			{
+				SqlCommand command = new SqlCommand(GetLeaderboard, connection);
+				connection.Open();
+
+				SqlDataReader reader = command.ExecuteReader();
+
+				// Call Read before accessing data.
+				while (reader.Read())
+				{
+					highScores.Add((string)reader[0], (int)reader[1]);
+				}
+
+				// Call Close when done reading.
+				reader.Close();
+			}
+
 		}
 		private void CreateLables()
 		{
 			HighScoresPanel1.Children.Clear();
+			HighScoresPanel2.Children.Clear();
 			var sortedHighscores = from score in highScores orderby score.Value descending select score;
 			foreach (KeyValuePair<string, int> highscore in sortedHighscores)
 			{

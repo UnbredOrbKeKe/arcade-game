@@ -16,6 +16,8 @@ using System.Media;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Threading; // add this for the timer
+using System.Data.SqlClient;
+using System.Data;
 
 namespace placeholderGame
 {
@@ -34,10 +36,10 @@ namespace placeholderGame
 		
 
 
-		int player1Speed = 12;
-		int player2Speed = 12;
-		public static int score1 = 0;
-		public static int score2 = 0;
+		int player1Speed = 10;
+		int player2Speed = 10;
+		public int score1 = 0;
+		public int score2 = 0;
 
 		int Player1ShootDelay = 250;
 		int Player2ShootDelay = 250;
@@ -58,21 +60,18 @@ namespace placeholderGame
 		private int EnemySpawnMax = 50;
 		private int EnemySpawnCount = 100;
 		private const int EnemySpeed = 10;
-		private int bulletspeed = 25;
 
-		
+		private int increment = 30;
+
+		public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
 
 		public MainWindow()
 		{
 			InitializeComponent();
 			exit.IsEnabled = false;
 			exit.Visibility = Visibility.Hidden;
-			Reset.IsEnabled = false;
-			Reset.Visibility = Visibility.Hidden;
-			ReturnToMenu.IsEnabled = false;
-			ReturnToMenu.Visibility = Visibility.Hidden;
 
-			Player1Name.Content = placeholderGame.EnterName.player1Name;
+            Player1Name.Content = placeholderGame.EnterName.player1Name;
             Player2Name.Content = placeholderGame.EnterName.player2Name;
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
@@ -95,336 +94,27 @@ namespace placeholderGame
 			MyCanvas.Background = bg;
 
 
-			ImageBrush player1Image = new ImageBrush();
-			player1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_orange.png"));
-			player1.Fill = player1Image;
 			ImageBrush player2Image = new ImageBrush();
-			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
+			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_orange.png"));
 			player2.Fill = player2Image;
+			ImageBrush player1Image = new ImageBrush();
+			player1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
+			player1.Fill = player1Image;
 
-			ImageBrush PowerUp1Image = new ImageBrush();
-			PowerUp1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/FastFire.png"));
-			PowerUp1.Fill = PowerUp1Image;
-			PowerUp1.Visibility = Visibility.Hidden;
-			ImageBrush PowerUp2Image = new ImageBrush();
-			PowerUp2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/FastFire.png"));
-			PowerUp2.Fill = PowerUp2Image;
-			PowerUp2.Visibility = Visibility.Hidden;
 		}
-
-		#region GameEngine
-		public void GameEngine(object sender, EventArgs e)
+		#region EndgameButton
+		private void Menu_Click(object sender, RoutedEventArgs e)
 		{
-			scoreText1.Content = "Score: " + score1;
-			scoreText2.Content = "Score: " + score2;
-
-			Rect player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height); //hitbox player rechts
-			Rect player2HitBox = new Rect(Canvas.GetLeft(player2), Canvas.GetTop(player2), player2.Width, player2.Height); //hitbox player links
-
-			if (Pause == false)
+			placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu
 			{
-				EnemyAsteroid(rand.Next(1, 51));
-
-				if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
-				{
-					Canvas.SetTop(player1, Canvas.GetTop(player1) - player1Speed);
-				}
-				if (moveRight1 == true && Canvas.GetTop(player1) < 700)
-				{
-					Canvas.SetTop(player1, Canvas.GetTop(player1) + player1Speed);
-				}
-
-				if (moveLeft2 == true && Canvas.GetTop(player2) > 0)
-				{
-					Canvas.SetTop(player2, Canvas.GetTop(player2) - player2Speed);
-				}
-				if (moveRight2 == true && Canvas.GetTop(player2) < 700)
-				{
-					Canvas.SetTop(player2, Canvas.GetTop(player2) + player2Speed);
-				}
-
-				foreach (var x in MyCanvas.Children.OfType<Rectangle>())
-				{
-
-					if (x is Rectangle && (string)x.Tag == "bullet2")
-					{
-
-						Canvas.SetLeft(x, Canvas.GetLeft(x) + bulletspeed);
-
-
-						Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-
-						if (Canvas.GetLeft(x) < 10)
-						{
-							itemstoremove.Add(x);
-						}
-
-						if (bullet.IntersectsWith(player1HitBox))
-						{
-							itemstoremove.Add(x);
-							Player1CanShoot = false;
-							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
-
-						}
-
-						foreach (var y in MyCanvas.Children.OfType<Rectangle>())
-						{
-
-							if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
-							{
-								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 82)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score2 += 2;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 81)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score2 += 4;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 80)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score2 += 6;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 79)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score2 += 8;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 78)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score2 += 10;
-									PayerPowerUp2();
-									Player2ShootDelay = 10;
-									Task.Delay(PowerUpTime).ContinueWith(_ => { Player2ShootDelay = 250; });
-								}
-							}
-
-							#region Bullet2 Intersects with asteroid
-							if (y is Rectangle && ((string)y.Tag == "asteroidLinks" || (string)y.Tag == "asteroidRechts"))
-							{
-								Rect asteroid = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-
-								if (bullet.IntersectsWith(asteroid))
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score2++;
-								}
-							}
-							#endregion
-						}
-					}
-				}
-
-
-
-
-				foreach (var x in MyCanvas.Children.OfType<Rectangle>())
-				{
-
-					if (x is Rectangle && (string)x.Tag == "bullet1")
-					{
-
-						Canvas.SetLeft(x, Canvas.GetLeft(x) - bulletspeed);
-
-
-						Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-
-						if (Canvas.GetLeft(x) < 10)
-						{
-
-							itemstoremove.Add(x);
-						}
-
-						if (bullet.IntersectsWith(player2HitBox))
-						{
-							itemstoremove.Add(x);
-							Player2CanShoot = false;
-							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
-
-						}
-
-
-						foreach (var y in MyCanvas.Children.OfType<Rectangle>())
-						{
-
-							if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
-							{
-								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 82)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score1 += 2;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 81)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score1 += 4;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 80)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score1 += 6;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 79)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score1 += 8;
-								}
-
-								if (bullet.IntersectsWith(enemy) && y.Width == 78)
-								{
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score1 += 10;
-									PayerPowerUp1();
-									Player1ShootDelay = 10;
-									Task.Delay(PowerUpTime).ContinueWith(_ => { Player1ShootDelay = 250; });
-								}
-							}
-							#region Bullet1 Intersects with asteroid
-							if (y is Rectangle && ((string)y.Tag == "asteroidLinks" || (string)y.Tag == "asteroidRechts"))
-							{
-								Rect asteroid = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-
-								if (bullet.IntersectsWith(asteroid))
-								{
-
-									itemstoremove.Add(x);
-									itemstoremove.Add(y);
-									score1++;
-
-								}
-							}
-							#endregion
-						}
-					}
-					#region Enemy Deleted When out of frame
-					if ((string)x.Tag == "EnemyTop")
-					{
-						Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
-						Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-						if (Canvas.GetTop(x) + 20 > 720)
-						{
-							itemstoremove.Add(x);
-						}
-					}
-
-					if ((string)x.Tag == "EnemyBottom")
-					{
-						Canvas.SetTop(x, Canvas.GetTop(x) - EnemySpeed);
-						Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-						if (Canvas.GetTop(x) + 20 < 0)
-						{
-							itemstoremove.Add(x);
-						}
-					}
-					#endregion
-
-					#region asteroidRechts Intersects
-					if (x is Rectangle && (string)x.Tag == "asteroidRechts")
-					{
-						Canvas.SetLeft(x, Canvas.GetLeft(x) + EnemySpeed);
-						Rect asteroid = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-						if (Canvas.GetLeft(x) + 20 > 1280)
-						{
-							itemstoremove.Add(x);
-						}
-
-						if (asteroid.IntersectsWith(player1HitBox))
-						{
-							itemstoremove.Add(x);
-							Player1CanShoot = false;
-							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
-
-						}
-					}
-					#endregion
-
-					#region asteroidLinks Intersects
-
-					if (x is Rectangle && (string)x.Tag == "asteroidLinks")
-					{
-						Canvas.SetLeft(x, Canvas.GetLeft(x) - EnemySpeed);
-						Rect asteroid = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-						if (Canvas.GetLeft(x) + 20 < 0)
-						{
-							itemstoremove.Add(x);
-						}
-
-						if (asteroid.IntersectsWith(player2HitBox))
-						{
-							itemstoremove.Add(x);
-							Player2CanShoot = false;
-							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
-
-						}
-					}
-					#endregion
-				}
-
-				foreach (Rectangle r in itemstoremove)
-				{
-					MyCanvas.Children.Remove(r);
-				}
-
-				EnemySpawnCount--;
-				if (EnemySpawnCount < 0)
-				{
-					MakeEnemies();
-					EnemySpawnCount = EnemySpawnMax;
-				}
-			}
+				Visibility = Visibility.Visible
+			};
+			Close();
 		}
-        #endregion
+		#endregion
 
-        #region PowerUpVoid
-
-        private async void PayerPowerUp2()
-        {
-			PowerUp2.Visibility = Visibility.Visible;
-			await Task.Delay(PowerUpTime);
-			PowerUp2.Visibility = Visibility.Hidden;
-        }
-
-		private async void PayerPowerUp1()
-		{
-			PowerUp1.Visibility = Visibility.Visible;
-			await Task.Delay(PowerUpTime);
-			PowerUp1.Visibility = Visibility.Hidden;
-		}
-        #endregion
-
-        #region MusicMute_button
-        private void muteMusic(object sender, RoutedEventArgs e)
+		#region MusicMute_button
+		private void muteMusic(object sender, RoutedEventArgs e)
 		{
 			if (musicMute.IsChecked == true)
 			{
@@ -438,25 +128,348 @@ namespace placeholderGame
 		#endregion
 
 		#region Timer
-		private int increment = 120;
 		private void Dt_Tick(object sender, EventArgs e)
 		{
-			if (Pause == false)
+			increment--;
+			timer.Content = "timer: " + increment.ToString();
+			if (increment == 0)
 			{
-				increment--;
-				timer.Content = "timer: " + increment.ToString();
-				if (increment == 0)
+				dispatcherTimer.Stop();
+				music.Stop();
+				gameTimer.Stop();
+				gameover.Content = "GAME OVER";
+
+				exit.IsEnabled = true;
+				exit.Visibility = Visibility.Visible;
+
+				SetHighScores();
+
+			}
+		}
+		#endregion
+
+		private void SetHighScores()
+		{
+			
+
+			string query1 = "INSERT INTO [Highscores] ([PlayerName],[Score]) VALUES ('" + EnterName.player1Name + "','" + score1 + "')";
+			string query2 = "INSERT INTO [Highscores] ([PlayerName],[Score]) VALUES ('" + EnterName.player2Name + "','" + score2 + "')";
+
+			SqlConnection connection = new SqlConnection(connectionString);
+
+			SqlCommand command = new SqlCommand();
+
+			try
+			{
+				//add player1 score
+				command.CommandText = query1;
+				command.CommandType = CommandType.Text;
+				command.Connection = connection;
+				connection.Open();
+				command.ExecuteNonQuery();
+				connection.Close();
+				//add player2 score
+				command.CommandText = query2;
+				command.CommandType = CommandType.Text;
+				command.Connection = connection;
+				connection.Open();
+				command.ExecuteNonQuery();
+				connection.Close();
+
+			}
+			catch (Exception e)
+			{
+				connection.Close();
+				MessageBox.Show(e.Message);
+			}
+		}
+
+		#region GameEngine
+		public void GameEngine(object sender, EventArgs e)
+		{
+			scoreText1.Content = "Score: " + score1;
+			scoreText2.Content = "Score: " + score2;
+
+			Rect player2HitBox = new Rect(Canvas.GetLeft(player2), Canvas.GetTop(player2), player2.Width, player2.Height); //hitbox player rechts
+			Rect player1HitBox = new Rect(Canvas.GetLeft(player1), Canvas.GetTop(player1), player1.Width, player1.Height); //hitbox player links
+
+			EnemyAsteroid(rand.Next(1, 51));
+
+			if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
+			{
+				Canvas.SetTop(player1, Canvas.GetTop(player1) - player1Speed);
+			}
+			if (moveRight1 == true && Canvas.GetTop(player1) < 700)
+			{
+				Canvas.SetTop(player1, Canvas.GetTop(player1) + player1Speed);
+			}
+
+			if (moveLeft2 == true && Canvas.GetTop(player2) > 0)
+			{
+				Canvas.SetTop(player2, Canvas.GetTop(player2) - player2Speed);
+			}
+			if (moveRight2 == true && Canvas.GetTop(player2) < 700)
+			{
+				Canvas.SetTop(player2, Canvas.GetTop(player2) + player2Speed);
+			}
+
+			foreach (var x in MyCanvas.Children.OfType<Rectangle>())
+			{
+
+				if (x is Rectangle && (string)x.Tag == "bullet2")
 				{
-					dispatcherTimer.Stop();
-					music.Stop();
-					gameTimer.Stop();
-					gameover.Content = "GAME OVER";
 
-					PauseMenuOn();
+					Canvas.SetLeft(x, Canvas.GetLeft(x) - 20);
 
-					//highScores.Add(placeholderGame.EnterName.player1Name, score1);
-					//highScores.Add(placeholderGame.EnterName.player2Name, score2);
+
+					Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+
+					if (Canvas.GetLeft(x) < 0)
+					{
+						itemstoremove.Add(x);
+					}
+
+					if (bullet.IntersectsWith(player1HitBox))
+					{
+						itemstoremove.Add(x);
+						Player1CanShoot = false;
+						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
+
+					}
+
+					foreach (var y in MyCanvas.Children.OfType<Rectangle>())
+					{
+
+						if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
+						{
+							Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 82)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score2 += 2;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 81)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score2 += 4;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 80)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score2 += 6;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 79)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score2 += 8;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 78)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score2 += 10;
+
+								Player2ShootDelay = 10;
+								Task.Delay(PowerUpTime).ContinueWith(_ => { Player2ShootDelay = 250; });
+							}
+						}
+
+						#region Bullet2 Intersects with asteroid
+						if (y is Rectangle && ((string)y.Tag == "asteroidLinks" || (string)y.Tag == "asteroidRechts"))
+						{
+							Rect asteroid = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+
+							if (bullet.IntersectsWith(asteroid))
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score2++;
+							}
+						}
+						#endregion
+					}
 				}
+			}
+
+
+
+
+			foreach (var x in MyCanvas.Children.OfType<Rectangle>())
+			{
+
+				if (x is Rectangle && (string)x.Tag == "bullet1")
+				{
+
+					Canvas.SetLeft(x, Canvas.GetLeft(x) + 20);
+
+
+					Rect bullet = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+
+					if (Canvas.GetLeft(x) > 1280)
+					{
+
+						itemstoremove.Add(x);
+					}
+
+					if (bullet.IntersectsWith(player2HitBox))
+					{
+						itemstoremove.Add(x);
+						Player2CanShoot = false;
+						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
+
+					}
+
+
+					foreach (var y in MyCanvas.Children.OfType<Rectangle>())
+					{
+
+						if (y is Rectangle && ((string)y.Tag == "EnemyTop" || (string)y.Tag == "EnemyBottom"))
+						{
+							Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 82)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1 += 2;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 81)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1 += 4;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 80)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1 += 6;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 79)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1 += 8;
+							}
+
+							if (bullet.IntersectsWith(enemy) && y.Width == 78)
+							{
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1 += 10;
+								Player1ShootDelay = 10;
+								Task.Delay(PowerUpTime).ContinueWith(_ => { Player1ShootDelay = 250; });
+							}
+						}
+						#region Bullet1 Intersects with asteroid
+						if (y is Rectangle && ((string)y.Tag == "asteroidLinks" || (string)y.Tag == "asteroidRechts"))
+						{
+							Rect asteroid = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+
+							if (bullet.IntersectsWith(asteroid))
+							{
+
+								itemstoremove.Add(x);
+								itemstoremove.Add(y);
+								score1++;
+
+							}
+						}
+						#endregion
+					}
+				}
+				#region Enemy Deleted When out of frame
+				if ((string)x.Tag == "EnemyTop")
+				{
+					Canvas.SetTop(x, Canvas.GetTop(x) + EnemySpeed);
+					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+					if (Canvas.GetTop(x) + 20 > 720)
+					{
+						itemstoremove.Add(x);
+					}
+				}
+
+				if ((string)x.Tag == "EnemyBottom")
+				{
+					Canvas.SetTop(x, Canvas.GetTop(x) - EnemySpeed);
+					Rect enemy = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+					if (Canvas.GetTop(x) + 20 < 0)
+					{
+						itemstoremove.Add(x);
+					}
+				}
+				#endregion
+
+				#region asteroidRechts Intersects
+				if (x is Rectangle && (string)x.Tag == "asteroidRechts")
+				{
+					Canvas.SetLeft(x, Canvas.GetLeft(x) + EnemySpeed);
+					Rect asteroid = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+					if (Canvas.GetLeft(x) + 20 > 1280)
+					{
+						itemstoremove.Add(x);
+					}
+
+					if (asteroid.IntersectsWith(player2HitBox))
+					{
+						itemstoremove.Add(x);
+						Player2CanShoot = false;
+						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
+
+					}
+				}
+				#endregion
+
+				#region asteroidLinks Intersects
+
+				if (x is Rectangle && (string)x.Tag == "asteroidLinks")
+				{
+					Canvas.SetLeft(x, Canvas.GetLeft(x) - EnemySpeed);
+					Rect asteroid = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+					if (Canvas.GetLeft(x) + 20 < 0)
+					{
+						itemstoremove.Add(x);
+					}
+
+					if (asteroid.IntersectsWith(player1HitBox))
+					{
+						itemstoremove.Add(x);
+						Player1CanShoot = false;
+						Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
+
+					}
+				}
+				#endregion
+			}
+
+			foreach (Rectangle r in itemstoremove)
+			{
+				MyCanvas.Children.Remove(r);
+			}
+
+			EnemySpawnCount--;
+			if (EnemySpawnCount < 0)
+			{
+				MakeEnemies();
+				EnemySpawnCount = EnemySpawnMax;
 			}
 		}
 		#endregion
@@ -466,20 +479,20 @@ namespace placeholderGame
 		{
 			if (e.Key == Key.Up)
 			{
-				moveLeft1 = true;
+				moveLeft2 = true;
 			}
 			if (e.Key == Key.Down)
 			{
-				moveRight1 = true;
+				moveRight2 = true;
 			}
 
 			if (e.Key == Key.W)
 			{
-				moveLeft2 = true;
+				moveLeft1 = true;
 			}
 			if (e.Key == Key.S)
 			{
-				moveRight2 = true;
+				moveRight1 = true;
 			}
 
 
@@ -491,31 +504,31 @@ namespace placeholderGame
 		{
 			if (e.Key == Key.Up)
 			{
-				moveLeft1 = false;
-			}
-			if (e.Key == Key.Down)
-			{
-				moveRight1 = false;
-			}
-
-			if (e.Key == Key.W)
-			{
 				moveLeft2 = false;
 			}
-			if (e.Key == Key.S)
+			if (e.Key == Key.Down)
 			{
 				moveRight2 = false;
 			}
 
-			if (e.Key == Key.RightShift && Player1CanShoot == true)
+			if (e.Key == Key.W)
 			{
-				Player1Shoot();
+				moveLeft1 = false;
+			}
+			if (e.Key == Key.S)
+			{
+				moveRight1 = false;
+			}
+
+			if (e.Key == Key.RightShift && Player2CanShoot == true)
+			{
+				Player2Shoot();
 
 			}
 
-			if (e.Key == Key.Space && Player2CanShoot == true)
+			if (e.Key == Key.Space && Player1CanShoot == true)
 			{
-				Player2Shoot();
+				Player1Shoot();
 			}
 
 		}
@@ -604,11 +617,10 @@ namespace placeholderGame
 			GC.Collect();
 
 		}
-       
-        #endregion
+		#endregion
 
-        #region Player1Shoot
-        private async void Player1Shoot()
+		#region Player1Shoot
+		private async void Player1Shoot()
 		{
 			Player1CanShoot = false;
 
@@ -616,7 +628,7 @@ namespace placeholderGame
 			{
 				Tag = "bullet1",
 				Height = 5,
-				Width = 15,
+				Width = 5,
 				Fill = Brushes.White,
 				Stroke = Brushes.Red
 			};
@@ -624,7 +636,7 @@ namespace placeholderGame
 
 			Canvas.SetTop(newBullet, Canvas.GetTop(player1) + player1.Height / 2);
 
-			Canvas.SetLeft(newBullet, Canvas.GetLeft(player1) - newBullet.Width);
+			Canvas.SetLeft(newBullet, Canvas.GetLeft(player1) + player1.Width);
 
 			MyCanvas.Children.Add(newBullet);
 
@@ -644,7 +656,7 @@ namespace placeholderGame
 			{
 				Tag = "bullet2",
 				Height = 5,
-				Width = 15,
+				Width = 5,
 				Fill = Brushes.White,
 				Stroke = Brushes.Red
 			};
@@ -652,7 +664,7 @@ namespace placeholderGame
 
 			Canvas.SetTop(newBullet, Canvas.GetTop(player2) + player2.Height / 2);
 
-			Canvas.SetLeft(newBullet, newBullet.Width + Canvas.GetLeft(player2) + player2.Width);
+			Canvas.SetLeft(newBullet, Canvas.GetLeft(player2) - newBullet.Width);
 
 			MyCanvas.Children.Add(newBullet);
 
@@ -660,11 +672,10 @@ namespace placeholderGame
 
 			Player2CanShoot = true;
 		}
+		#endregion
 
-        #endregion
-
-        #region Asteroid Spawning
-        private void EnemyAsteroid(int Spawn)
+		#region Asteroid Spawning
+		private void EnemyAsteroid(int Spawn)
 		{
 			ImageBrush Asteroid = new ImageBrush();
 			Asteroid.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/asteroid.png"));
@@ -707,86 +718,8 @@ namespace placeholderGame
 				}
 			}
 		}
-        #endregion
-
-        #region Pause Menu
-		private bool Pause = false;
-        private void Pause_Click(object sender, RoutedEventArgs e)
-	     {
-			if (Pause == true)
-			{ 
-				Pause = false;
-				if (musicMute.IsChecked == false)
-				{
-					music.Play();
-				}
-				PauseMenuOff();
-			}
-
-			else
-			{
-				Pause = true;
-				if (musicMute.IsChecked == false)
-				{
-					music.Pause();
-				}
-				PauseMenuOn();
-			}
-		}
-        #endregion
-
-        #region Exit button
-        private void Exit_Click(object sender, RoutedEventArgs e)
-		{
-			Close();
-		}
-        #endregion
-
-		#region ReturnToMenu button
-		private void Menu_Click(object sender, RoutedEventArgs e)
-		{
-			placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu
-			{
-				Visibility = Visibility.Visible
-			};
-			Close();
-		}
 		#endregion
 
-        #region Reset button
-        private void Reset_Click(object sender, RoutedEventArgs e)
-		{
-			placeholderGame.EnterName mainMenu = new placeholderGame.EnterName
-			{
-				Visibility = Visibility.Visible
-			};
-			Close();
-		}
-        #endregion
-
-        #region PauseMenuOn
-        private void PauseMenuOn()
-		{
-			exit.IsEnabled = true;
-			exit.Visibility = Visibility.Visible;
-			Reset.IsEnabled = true;
-			Reset.Visibility = Visibility.Visible;
-			ReturnToMenu.IsEnabled = true;
-			ReturnToMenu.Visibility = Visibility.Visible;
-		}
-        #endregion
-
-        #region PauseMenuOff
-        private void PauseMenuOff()
-		{
-			exit.IsEnabled = false;
-			exit.Visibility = Visibility.Hidden;
-			Reset.IsEnabled = false;
-			Reset.Visibility = Visibility.Hidden;
-			ReturnToMenu.IsEnabled = false;
-			ReturnToMenu.Visibility = Visibility.Hidden;
-		}
-        #endregion
-    }
+	}
 
 }

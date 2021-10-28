@@ -85,7 +85,7 @@
             <Button Grid.Column="1"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
-                    Content="LEADERBOARDS"
+                    Content="HIGHSCORES"
                     FontSize="40" 
                     Foreground="White" 
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
