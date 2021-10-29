@@ -41,12 +41,12 @@ namespace placeholderGame
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-            placeholderGame.OptionsMenu optionsMenu = new placeholderGame.OptionsMenu
-            {
-                Visibility = Visibility.Visible
-            };
-            Close();
-        }
+			placeholderGame.OptionsMenu optionsMenu = new placeholderGame.OptionsMenu
+			{
+				Visibility = Visibility.Visible
+			};
+			Close();
+		}
         private void Leaderboards_Click(object sender, RoutedEventArgs e)
         {
             placeholderGame.Leaderboard leaderborad = new placeholderGame.Leaderboard
