@@ -67,6 +67,7 @@ namespace placeholderGame
 			{
 				Visibility = Visibility.Visible
 			};
+            Close();
 		}
     }
 }

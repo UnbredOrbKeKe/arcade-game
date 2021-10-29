@@ -5,20 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:placeholderGame"
         mc:Ignorable="d"
-        Title="GameRules" Height="730" Width="730">
+        Title="GameRules" Height="720" Width="1280" WindowState="Maximized">
     <Window.Background>
         <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
     </Window.Background>
 
-    <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="White" Opacity="0.1"/>
-        </Grid.Background>
-        <Label VerticalContentAlignment="Top"
-               HorizontalContentAlignment="Left"
-               Content="Your goal is to get as&#xA;many points as possible.&#xA;by shooting enemies and&#xA;your opponent.&#xA;&#xA;When hit, you will lose&#xA;points and your guns&#xA;will be disabled for a &#xA;short time&#xA;&#xA;Controls:&#xA;WASD and Arrow Keys" 
-               FontSize="25"
-               Foreground="White" 
-               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
-    </Grid>
+    <Canvas Name="MyCanvas" 
+            Focusable="True" 
+            Width="1280" Height="720">
+        <Canvas.Background>
+            <ImageBrush ImageSource="images/space background.png"/>
+        </Canvas.Background>
+        <Grid Height="720" Width="1280">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".25*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="3"
+                       Grid.Column="0" Margin="24,10,24,12">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/playerShip2_blue.png" Stretch="None"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="2"
+                       Grid.Column="0" Margin="24,18,24,24">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/playerShip1_orange.png" Stretch="None"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="4"
+                       Grid.Column="0" Margin="12,22">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/5.png" Stretch="None"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Content="Your goal is to get more points than your opponent by shooting the targets flying through 
+                   &#xA;the middle of the screen. Beware however, because meteors fly through space and might hit you
+                   &#xA;causing your ship to malfunction. You can also shoot your opponent to disable their ship for a
+                   &#xA;short amount of time." 
+                   FontSize="25"
+                   Foreground="White" 
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Content="Player 1: Player 1 controls their spaceship using the up and down arrow keys to move and right 
+                   &#xA;shift to fire." 
+                   FontSize="25"
+                   Foreground="White" 
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+            <Label Grid.Row="3"
+                   Grid.Column="1"
+                   Content="Player 2: Player 2 controls their spaceship using the W and S key to move and spacebar to fire." 
+                   FontSize="25"
+                   Foreground="White" 
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+            <Label Grid.Row="4"
+                   Grid.Column="1"
+                   Content="Special: Shooting this spaceship causes your ship to gain a power-up." 
+                   FontSize="25"
+                   Foreground="White" 
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+            <Button Grid.Column="1"
+                    Grid.Row="5"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="BACK TO MENU"
+                    FontSize="40" 
+                    Foreground="White"
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
+                    BorderBrush="White" 
+                    Click="BacktoMenu_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="White" Opacity="0.2"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Canvas>
 </Window>
