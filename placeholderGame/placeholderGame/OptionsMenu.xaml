@@ -1,0 +1,82 @@
+﻿<Window x:Class="placeholderGame.OptionsMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:placeholderGame"
+        mc:Ignorable="d"
+        Title="OptionsMenu" Height="720" Width="1280" WindowState="Maximized">
+    <Window.Background>
+        <ImageBrush ImageSource="images/space background.png" Stretch="None"/>
+    </Window.Background>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="50"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Label VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       Content="PlaceHolder" 
+                       FontSize="50"
+                       Foreground="White" 
+                       FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       HorizontalContentAlignment="Center" 
+                       VerticalContentAlignment="Center"
+                       Content="VOLUME:"
+                       FontSize="40" 
+                       Foreground="White" 
+                       FontFamily="/placeholderGame;component/Fonts/#Square Galaxy">
+                </Label>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Slider Grid.Column="1"
+                        Maximum="100" 
+                        TickPlacement="BottomRight" 
+                        TickFrequency="10" 
+                        IsSnapToTickEnabled="True" ValueChanged="Slider_Volume">
+                </Slider>
+            </Grid>
+            <Grid Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="BACK"
+                        FontSize="40"
+                        Foreground="White"
+                        FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                        Click="BacktoMenu_Click">
+                    <Button.Background>
+                        <SolidColorBrush Color="White" Opacity="0.2"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

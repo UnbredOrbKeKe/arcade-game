@@ -99,10 +99,9 @@
 
         <Grid Grid.Row="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="106*"/>
-                <ColumnDefinition Width="70*"/>
-                <ColumnDefinition Width="249*"/>
-                <ColumnDefinition Width="107*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1"
                     VerticalContentAlignment="Center"
@@ -112,7 +111,6 @@
                     Foreground="White"
                     FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
                     BorderBrush="White" 
-                    Grid.ColumnSpan="2" 
                     Click="Exit_Click">
                 <Button.Background>
                     <SolidColorBrush Color="White" Opacity="0.2"/>
