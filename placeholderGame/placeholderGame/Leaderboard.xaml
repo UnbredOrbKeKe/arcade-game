@@ -33,7 +33,7 @@
                     Content="BACK"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Exit_click">
                 <Button.Background>
@@ -47,7 +47,7 @@
                     Content="REFRESH"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Refresh_Click">
                 <Button.Background>
@@ -55,9 +55,9 @@
                 </Button.Background>
             </Button>
 
-            <Label Grid.Row="0" Grid.Column="2" Content="PLAYERS:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Margin="48,10" Width="204"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="PLAYERS:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Margin="48,10" Width="204"/>
 
-            <Label Grid.Row="0" Grid.Column="3" Content="SCORE:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Margin="76,10" Width="148"/>
+            <Label Grid.Row="0" Grid.Column="3" Content="SCORE:" FontSize="40" FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Margin="76,10" Width="148"/>
             <StackPanel Grid.Row="1" Grid.Column="2" x:Name="HighScoresPanel1" Grid.RowSpan="8">
 
             </StackPanel>

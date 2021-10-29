@@ -51,11 +51,11 @@
             Content="Score: 0" 
             FontSize="30" 
             FontWeight="Bold" 
-            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"
             Foreground="Orange" 
             Canvas.Left="1110" 
             HorizontalAlignment="Center" 
-            VerticalAlignment="Center" Canvas.Top="-5" Width="170" Panel.ZIndex="2"/>
+            VerticalAlignment="Center" Width="170" Panel.ZIndex="2"/>
 
         <Label 
             x:Name="scoreText1" 
@@ -63,10 +63,10 @@
             FontSize="30" 
             FontWeight="Bold" 
             Foreground="Aqua" 
-            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+            FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
             Canvas.Left="10" 
             HorizontalAlignment="Center" 
-            VerticalAlignment="Center" Canvas.Top="-5" Width="170" Panel.ZIndex="2"/>
+            VerticalAlignment="Center" Width="170" Panel.ZIndex="2"/>
 
         <Rectangle x:Name ="ui" Height="204" Width="1280" Fill="Black" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="1" Canvas.Top="-170" />
         <Label 
@@ -74,13 +74,12 @@
             FontSize="30" 
             FontWeight="Bold" 
             Content="timer: 120"
-            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"
             VerticalAlignment="Center" 
             Foreground="Red" 
-            Canvas.Left="561" 
+            Canvas.Left="552" 
             Height="34" 
             Width="180" 
-            Canvas.Top="-5" 
             HorizontalAlignment="Center" Panel.ZIndex="2" />
 
 
@@ -89,7 +88,7 @@
             FontSize="72" 
             FontWeight="Bold" 
             Content=""
-            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"
             VerticalAlignment="Center" 
             Foreground="Red" 
             Canvas.Left="401" 
@@ -103,7 +102,7 @@
             FontSize="36" 
             FontWeight="Bold" 
             Content=""
-            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"
             VerticalAlignment="Center" 
             Foreground="Aqua" 
             Canvas.Left="18" 
@@ -117,7 +116,7 @@
             FontSize="36" 
             FontWeight="Bold" 
             Content=""
-            FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"
+            FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"
             VerticalAlignment="Center" 
             Foreground="Orange" 
             Canvas.Left="998" 
@@ -132,11 +131,11 @@
                     Content="EXIT GAME"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Exit_Click" 
-                    Canvas.Left="512" 
-                    Canvas.Top="325"
+                    Canvas.Left="537" 
+                    Canvas.Top="331"
                     Panel.ZIndex="2">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.2"/>
@@ -149,11 +148,11 @@
                     Content="RETURN TO MENU"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Menu_Click" 
-                    Canvas.Left="452" 
-                    Canvas.Top="253"
+                    Canvas.Left="485" 
+                    Canvas.Top="259"
                     Panel.ZIndex="2">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.2"/>
@@ -166,10 +165,10 @@
                     Content="RESET"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Reset_Click" 
-                    Canvas.Left="552" 
+                    Canvas.Left="578" 
                     Canvas.Top="391"
                     Panel.ZIndex="2">
             <Button.Background>
@@ -196,7 +195,7 @@
 
         <CheckBox x:Name="musicMute" 
                   Content="Mute music" 
-                  FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                  FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                   FontSize="15"  
                   Foreground="White" 
                   BorderBrush="White" 
@@ -217,7 +216,7 @@
                Canvas.Top="34"
                FontSize="15" 
                Foreground="Orange" 
-               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+               FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                Content="Playername" />
 
         <Label x:Name="Player1Name"
@@ -226,7 +225,7 @@
                  Canvas.Top="34"
                  FontSize="15" 
                  Foreground="Aqua" 
-                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                  BorderBrush="White"
                  Content="Playername"/>
 

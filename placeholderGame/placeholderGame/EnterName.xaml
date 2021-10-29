@@ -55,10 +55,10 @@
                     Content="START GAME"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Start_Click" 
-                    Canvas.Left="504" 
+                    Canvas.Left="537" 
                     Canvas.Top="360">
             <Button.Background>
                 <SolidColorBrush Color="White" 
@@ -69,7 +69,7 @@
                  Canvas.Top="283"
                  FontSize="25" 
                  Foreground="White" 
-                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                  BorderBrush="White"
                  Content="Enter your name player 1!" Width="368"/>
 
@@ -78,7 +78,7 @@
                  x:Name="PlayerName1"
                  FontSize="15" 
                  Foreground="White" 
-                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                  BorderBrush="White"
                  Width="343" 
                  MaxLength="15" Height="23">
@@ -89,11 +89,11 @@
             </TextBox.Background>
         </TextBox>
 
-        <Label Canvas.Left="894" 
+        <Label Canvas.Left="931" 
                Canvas.Top="283"
                FontSize="25" 
                Foreground="White" 
-               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+               FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                Content="Enter your name player 2!" Width="376" />
 
         <TextBox Canvas.Left="915" 
@@ -101,7 +101,7 @@
                  x:Name="PlayerName2"
                  FontSize="15"
                  Foreground="White" 
-                 FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                 FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                  BorderBrush="White" 
                  Width="355"
                  MaxLength="15" Height="23">
@@ -113,11 +113,11 @@
         </TextBox>
 
         <Label x:Name="EnterAName"
-               Canvas.Left="290" 
-               Canvas.Top="227"
+               Canvas.Left="383" 
+               Canvas.Top="233"
                FontSize="40" 
                Foreground="red" 
-               FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+               FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                Content="Please enter your names first!" />
     </Canvas>
 </Window>

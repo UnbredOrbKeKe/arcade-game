@@ -28,10 +28,10 @@
         <Grid Grid.Row="1">
             <Label VerticalContentAlignment="Center"
                    HorizontalContentAlignment="Center"
-                   Content="PlaceHolder" 
+                   Content="Astral Aggression" 
                    FontSize="50"
-                   Foreground="White" 
-                   FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
+                   Foreground="white" 
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -46,7 +46,7 @@
                     Content="START GAME"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Start_Click">
                 <Button.Background>
@@ -67,7 +67,7 @@
                     Content="OPTIONS"
                     FontSize="40" 
                     Foreground="White"
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Options_Click">
                 <Button.Background>
@@ -88,7 +88,7 @@
                     Content="HIGHSCORES"
                     FontSize="40" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Leaderboards_Click">
                 <Button.Background>
@@ -109,7 +109,7 @@
                     Content="EXIT"
                     FontSize="40" 
                     Foreground="White"
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     BorderBrush="White" 
                     Click="Exit_Click">
                 <Button.Background>
@@ -123,7 +123,7 @@
                     Content="?"
                     FontSize="100" 
                     Foreground="White" 
-                    FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                     Grid.Column="3" 
                     Margin="109,122,44,-190" 
                     Background="{x:Null}" 

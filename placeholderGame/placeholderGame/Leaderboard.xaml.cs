@@ -26,12 +26,16 @@ namespace placeholderGame
 		Dictionary<string, int> highScores = new Dictionary<string, int>();
 		Random rand = new Random();
 
+		/// <summary>
+		/// upon calling the leaderboard function the highscores are getting cleared and refilled
+		/// </summary>
 		public Leaderboard()
 		{
 			InitializeComponent();
 			highScores.Clear();
 			GetHighscores();
 			CreateLables();
+			//initialize background
 			ImageBrush bg = new ImageBrush();
 			bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
 			bg.TileMode = TileMode.Tile;
@@ -60,18 +64,19 @@ namespace placeholderGame
 		{
 			//get highscores from database
 			highScores.Clear();
-
+			// string with database code to select the data
 			string GetLeaderboard = "SELECT PlayerName,Score FROM dbo.Highscores;";
 
 
 			using (SqlConnection connection = new SqlConnection(MainWindow.connectionString))
 			{
 				SqlCommand command = new SqlCommand(GetLeaderboard, connection);
+				//opening connection with the database
 				connection.Open();
 
 				SqlDataReader reader = command.ExecuteReader();
 
-				// Call Read before accessing data.
+				// reads all the data in the database and adds it to the dictionatry
 				while (reader.Read())
 				{
 					highScores.Add((string)reader[0], (int)reader[1]);
@@ -82,6 +87,9 @@ namespace placeholderGame
 			}
 
 		}
+		/// <summary>
+		/// creating labels in a stackpanel
+		/// </summary>
 		private void CreateLables()
 		{
 			HighScoresPanel1.Children.Clear();

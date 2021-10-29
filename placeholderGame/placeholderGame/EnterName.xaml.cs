@@ -47,6 +47,7 @@ namespace placeholderGame
 
         public async void Start_Click(object sender, RoutedEventArgs e)
         {
+            //if the string of one of the players is empty it will give an error message on the screen
             if (String.IsNullOrEmpty(PlayerName1.Text) || String.IsNullOrEmpty(PlayerName2.Text))
             {
                 EnterAName.Visibility = Visibility.Visible;

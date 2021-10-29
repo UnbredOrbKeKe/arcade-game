@@ -23,6 +23,8 @@ namespace placeholderGame
         {
             InitializeComponent();
             ImageBrush bg = new ImageBrush();
+
+            //initialize the background
             bg.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/space_background.png"));
             bg.TileMode = TileMode.Tile;
             bg.Viewport = new Rect(0, 0, 1, 1);
@@ -32,8 +34,14 @@ namespace placeholderGame
 
         private void Slider_Volume(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-
+            //couldn't get the volume to work in time
         }
+
+        /// <summary>
+        /// on click opens the mainmenu window and closes the options menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BacktoMenu_Click(object sender, RoutedEventArgs e)
         {
             placeholderGame.MainMenu mainMenu = new placeholderGame.MainMenu

@@ -16,8 +16,8 @@ using System.Media;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Threading; // add this for the timer
-using System.Data.SqlClient;
-using System.Data;
+using System.Data.SqlClient; // add for databases
+using System.Data; // add for databases
 
 namespace placeholderGame
 {
@@ -26,15 +26,15 @@ namespace placeholderGame
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		//creates timer that holds the logic for checking if the time of the game ran out.
 		DispatcherTimer gameTimer = new DispatcherTimer(DispatcherPriority.Normal);
+
+		//creates timer where the game runs on
 		DispatcherTimer dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal);
 		bool moveLeft1, moveRight1, moveRight2, moveLeft2;
 		List<Rectangle> itemRemover = new List<Rectangle>();
 
 		Random rand = new Random();
-
-		
-
 
 		int player1Speed = 12;
 		int player2Speed = 12;
@@ -45,7 +45,7 @@ namespace placeholderGame
 		int Player2ShootDelay = 250;
 		int PlayerDisableShootTime = 5000;
 
-		int PowerUpTime = 10000;
+		int PowerUpTime = 10000; //time in ms
 
 		bool Player1CanShoot = true;
 		bool Player2CanShoot = true;
@@ -64,11 +64,14 @@ namespace placeholderGame
 
 		private int increment = 120;
 
-		//public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
-		public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Dennis\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf;Integrated Security=True;";
+		public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
+		//public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Dennis\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf;Integrated Security=True;";
+		//public static string connectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\Documents\GitHub\arcade-game\placeholderGame\placeholderGame\Data\Database1.mdf;Integrated Security=True";
+
 		public MainWindow()
 		{
 			InitializeComponent();
+
 			exit.IsEnabled = false;
 			exit.Visibility = Visibility.Hidden;
 			Reset.IsEnabled = false;
@@ -76,14 +79,16 @@ namespace placeholderGame
 			ReturnToMenu.IsEnabled = false;
 			ReturnToMenu.Visibility = Visibility.Hidden;
 
-            Player1Name.Content = placeholderGame.EnterName.player1Name;
-            Player2Name.Content = placeholderGame.EnterName.player2Name;
+			Player1Name.Content = placeholderGame.EnterName.player1Name;
+			Player2Name.Content = placeholderGame.EnterName.player2Name;
 
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+			//this is the timer that is handeling how many times the gameEngine is called
+			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 			gameTimer.Tick += new EventHandler(GameEngine);
 			gameTimer.Start();
 			MyCanvas.Focus();
 
+			//this timer handles the seconds the game is playing
 			dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
 			dispatcherTimer.Tick += Dt_Tick;
 			dispatcherTimer.Start();
@@ -113,9 +118,14 @@ namespace placeholderGame
 			PowerUp2.Fill = PowerUp1Image;
 			PowerUp2.Visibility = Visibility.Hidden;
 		}
-		
+
 
 		#region MusicMute_button
+		/// <summary>
+		/// this function uses a checkbox to mute and unmute the music because we think that some players will be annoyed with the music after some time
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void muteMusic(object sender, RoutedEventArgs e)
 		{
 			if (musicMute.IsChecked == true)
@@ -130,10 +140,15 @@ namespace placeholderGame
 		#endregion
 
 		#region Timer
+		/// <summary>
+		/// this function checks if the game is paused and stops the game when it is. checks who won the game and checks if the time ran out.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Dt_Tick(object sender, EventArgs e)
 		{
-			if(Pause == false)
-			{ 
+			if (Pause == false)
+			{
 				increment--;
 				timer.Content = "timer: " + increment.ToString();
 				if (increment == 0)
@@ -166,12 +181,15 @@ namespace placeholderGame
 				}
 			}
 		}
-        #endregion
+		#endregion
 
-        #region setHighScores
-        private void SetHighScores()
+		#region setHighScores
+		/// <summary>
+		/// this function inserts the playernames and score into the database.
+		/// </summary>
+		private void SetHighScores()
 		{
-			
+
 
 			string query1 = "INSERT INTO [Highscores] ([PlayerName],[Score]) VALUES ('" + EnterName.player1Name + "','" + score1 + "')";
 			string query2 = "INSERT INTO [Highscores] ([PlayerName],[Score]) VALUES ('" + EnterName.player2Name + "','" + score2 + "')";
@@ -204,10 +222,16 @@ namespace placeholderGame
 				MessageBox.Show(e.Message);
 			}
 		}
-        #endregion
+		#endregion
 
-        #region GameEngine
-        public void GameEngine(object sender, EventArgs e)
+		#region GameEngine
+
+		/// <summary>
+		/// the gameEngine function regulates all the updates that the player sees on the canvas/screen (lets all the objects move when it needs to)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public void GameEngine(object sender, EventArgs e)
 		{
 			scoreText1.Content = "Score: " + score1;
 			scoreText2.Content = "Score: " + score2;
@@ -217,9 +241,10 @@ namespace placeholderGame
 
 			if (Pause == false)
 			{
-
+				//every gametick has a chance to spawn an asteroid (the chance is 1%) (the game runs on 50 fps)
 				EnemyAsteroid(rand.Next(1, 51));
 
+				//these if statements handle the min and max pos of the player
 				if (moveLeft1 == true && Canvas.GetTop(player1) > 0)
 				{
 					Canvas.SetTop(player1, Canvas.GetTop(player1) - player1Speed);
@@ -238,6 +263,7 @@ namespace placeholderGame
 					Canvas.SetTop(player2, Canvas.GetTop(player2) + player2Speed);
 				}
 
+				//this foreach loop handles the physics of the bullets
 				foreach (var x in MyCanvas.Children.OfType<Rectangle>())
 				{
 
@@ -502,14 +528,18 @@ namespace placeholderGame
 		#endregion
 
 		#region PowerUpMethods
-
+		/// <summary>
+		/// this handles the powerups for player 2
+		/// </summary>
 		private async void PlayerPowerUp2()
 		{
 			PowerUp2.Visibility = Visibility.Visible;
 			await Task.Delay(PowerUpTime);
 			PowerUp2.Visibility = Visibility.Hidden;
 		}
-
+		/// <summary>
+		/// this handles the powerups for player 1
+		/// </summary>
 		private async void PlayerPowerUp1()
 		{
 			PowerUp1.Visibility = Visibility.Visible;
@@ -520,6 +550,11 @@ namespace placeholderGame
 		#endregion
 
 		#region OnKeyDown
+		/// <summary>
+		/// handles the keys that the players presses
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Up)
@@ -545,6 +580,11 @@ namespace placeholderGame
 		#endregion
 
 		#region OnKeyUp
+		/// <summary>
+		/// handles the keys that the players letgo
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnKeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Up)
@@ -580,18 +620,22 @@ namespace placeholderGame
 		#endregion
 
 		#region MakeEnemies
+		/// <summary>
+		/// this void handles the spawning of enemy's
+		/// </summary>
 		private void MakeEnemies()
 		{
 			ImageBrush EnemyType = new ImageBrush();
 			int EnemyTypeCounter = rand.Next(1, 16);
 			int Dimension = 0;
-
+			// this switchcase handles the percentages of the spawning of enemies. this isnt the best way but it works.
 			switch (EnemyTypeCounter)
 			{
 				case 1:
 				case 2:
 				case 3:
 				case 4:
+				//common enemy 33 1/3%
 				case 5:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/1.png"));
 					Dimension = 82;
@@ -600,24 +644,27 @@ namespace placeholderGame
 				case 6:
 				case 7:
 				case 8:
+				//uncommon enemy 26 2/3%
 				case 9:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/2.png"));
 					Dimension = 81;
 					break;
-
+					
 				case 10:
 				case 11:
+				//rare enemy 20%
 				case 12:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/3.png"));
 					Dimension = 80;
 					break;
 
 				case 13:
+				//epic enemy 13 1/3%
 				case 14:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/4.png"));
 					Dimension = 79;
 					break;
-
+				// Legendary enemy 6 2/3%
 				case 15:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/5.png"));
 					Dimension = 78;
@@ -626,7 +673,7 @@ namespace placeholderGame
 			}
 
 			int EnemySpawn = rand.Next(1, 3);
-
+			// this switchcase handles where the enemy spawns
 			switch (EnemySpawn)
 			{
 				case 1:
@@ -662,7 +709,7 @@ namespace placeholderGame
 			GC.Collect();
 
 		}
-        #endregion
+		#endregion
 
 		#region PauseMenuButtons
 		private void Menu_Click(object sender, RoutedEventArgs e)
@@ -675,12 +722,12 @@ namespace placeholderGame
 		}
 
 		private void Exit_Click(object sender, RoutedEventArgs e)
-        {
+		{
 			Close();
-        }
+		}
 
-        private void Reset_Click(object sender, RoutedEventArgs e)
-        {
+		private void Reset_Click(object sender, RoutedEventArgs e)
+		{
 			placeholderGame.EnterName mainMenu = new placeholderGame.EnterName
 			{
 				Visibility = Visibility.Visible
@@ -692,20 +739,20 @@ namespace placeholderGame
 
 		#region PauseButton
 		private bool Pause = false;
-        private void Pause_Click(object sender, RoutedEventArgs e)
-        {
+		private void Pause_Click(object sender, RoutedEventArgs e)
+		{
 			if (Pause == true)
 			{
 				Pause = false;
-				if(musicMute.IsChecked == false)
-                {
+				if (musicMute.IsChecked == false)
+				{
 					music.Play();
-                }
+				}
 				PauseMenuOff();
 			}
 
 			else
-            {
+			{
 				Pause = true;
 				if (musicMute.IsChecked == false)
 				{
@@ -713,12 +760,13 @@ namespace placeholderGame
 				}
 				PauseMenuOn();
 			}
-        }
-        #endregion
+		}
+		#endregion
 
-        #region Pause menu On en Off + GameOver menu
-        private void PauseMenuOff()
-        {
+		#region Pause menu On en Off + GameOver menu
+		// this region handles the pausemenu buttons and UI elements
+		private void PauseMenuOff()
+		{
 			exit.IsEnabled = false;
 			exit.Visibility = Visibility.Hidden;
 			Reset.IsEnabled = false;
@@ -747,6 +795,9 @@ namespace placeholderGame
 		#endregion
 
 		#region Player1Shoot
+		/// <summary>
+		/// player1shoot handles the logic of when player 1 can shoot
+		/// </summary>
 		private async void Player1Shoot()
 		{
 			Player1CanShoot = false;
@@ -775,6 +826,9 @@ namespace placeholderGame
 		#endregion
 
 		#region Player2Shoot
+		/// <summary>
+		/// player2shoot handles the logic of when player 2 can shoot
+		/// </summary>
 		private async void Player2Shoot()
 		{
 			Player2CanShoot = false;
@@ -802,6 +856,10 @@ namespace placeholderGame
 		#endregion
 
 		#region Asteroid Spawning
+		/// <summary>
+		/// handles the spawning rate and position of the asteroids
+		/// </summary>
+		/// <param name="Spawn"></param>
 		private void EnemyAsteroid(int Spawn)
 		{
 			ImageBrush Asteroid = new ImageBrush();

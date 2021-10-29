@@ -24,10 +24,10 @@
                 <Grid Grid.Row="1">
                     <Label VerticalContentAlignment="Center"
                        HorizontalContentAlignment="Center"
-                       Content="PlaceHolder" 
+                       Content="Astral Aggression" 
                        FontSize="50"
                        Foreground="White" 
-                       FontFamily="/placeholderGame;component/Fonts/#Square Galaxy"/>
+                       FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
                        Content="VOLUME:"
                        FontSize="40" 
                        Foreground="White" 
-                       FontFamily="/placeholderGame;component/Fonts/#Square Galaxy">
+                       FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler">
                     </Label>
                 </Grid>
                 <Grid Grid.Row="4">
@@ -69,7 +69,7 @@
                         Content="BACK"
                         FontSize="40"
                         Foreground="White"
-                        FontFamily="/placeholderGame;component/Fonts/#Square Galaxy" 
+                        FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" 
                         Click="BacktoMenu_Click">
                         <Button.Background>
                             <SolidColorBrush Color="White" Opacity="0.2"/>
