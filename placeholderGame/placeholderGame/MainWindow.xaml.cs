@@ -155,8 +155,8 @@ namespace placeholderGame
 
 					else
 					{
-						Player1Wins.Content = "IT'S A DRAW";
-						Player2Wins.Content = "IT'S A DRAW";
+						Player1Wins.Content = "IT'S A DRAW!";
+						Player2Wins.Content = "IT'S A DRAW!";
 					}
 
 					pause.Visibility = Visibility.Hidden;
