@@ -43,7 +43,7 @@ namespace placeholderGame
 
 		int Player1ShootDelay = 250;
 		int Player2ShootDelay = 250;
-		int PlayerDisableShootTime = 5000;
+		int PlayerDisableShootTime = 5000; //time in ms
 
 		int PowerUpTime = 10000; //time in ms
 
@@ -82,7 +82,7 @@ namespace placeholderGame
 			Player1Name.Content = placeholderGame.EnterName.player1Name;
 			Player2Name.Content = placeholderGame.EnterName.player2Name;
 
-			//this is the timer that is handeling how many times the gameEngine is called
+			//this is the timer that is handling how many times the gameEngine is called
 			gameTimer.Interval = TimeSpan.FromMilliseconds(20);
 			gameTimer.Tick += new EventHandler(GameEngine);
 			gameTimer.Start();
@@ -122,7 +122,7 @@ namespace placeholderGame
 
 		#region MusicMute_button
 		/// <summary>
-		/// this function uses a checkbox to mute and unmute the music because we think that some players will be annoyed with the music after some time
+		/// this method uses a checkbox to mute and unmute the music because we think that some players will be annoyed with the music after some time
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -141,7 +141,7 @@ namespace placeholderGame
 
 		#region Timer
 		/// <summary>
-		/// this function checks if the game is paused and stops the game when it is. checks who won the game and checks if the time ran out.
+		/// this method checks if the game is paused and stops the game when it is. checks who won the game and checks if the time ran out.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -185,7 +185,7 @@ namespace placeholderGame
 
 		#region setHighScores
 		/// <summary>
-		/// this function inserts the playernames and score into the database.
+		/// this method inserts the playernames and score into the database.
 		/// </summary>
 		private void SetHighScores()
 		{
@@ -227,7 +227,7 @@ namespace placeholderGame
 		#region GameEngine
 
 		/// <summary>
-		/// the gameEngine function regulates all the updates that the player sees on the canvas/screen (lets all the objects move when it needs to)
+		/// the gameEngine method regulates all the updates that the player sees on the canvas/screen (lets all the objects move when it needs to)
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -241,7 +241,7 @@ namespace placeholderGame
 
 			if (Pause == false)
 			{
-				//every gametick has a chance to spawn an asteroid (the chance is 1%) (the game runs on 50 fps)
+				//sends a value between 1 and 50 every game tick and when the correct value gets send it spawns a random asteroid (the chance for this to happen is 1%)
 				EnemyAsteroid(rand.Next(1, 51));
 
 				//these if statements handle the min and max pos of the player
@@ -263,7 +263,7 @@ namespace placeholderGame
 					Canvas.SetTop(player2, Canvas.GetTop(player2) + player2Speed);
 				}
 
-				//this foreach loop handles the physics of the bullets
+				//these foreach loops handle the physics of the bullets
 				foreach (var x in MyCanvas.Children.OfType<Rectangle>())
 				{
 
@@ -296,6 +296,7 @@ namespace placeholderGame
 							{
 								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
+								//these if statements check what type of enemy the bullet is intersecting with
 								if (bullet.IntersectsWith(enemy) && y.Width == 82)
 								{
 									itemstoremove.Add(x);
@@ -324,7 +325,7 @@ namespace placeholderGame
 									score2 += 8;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 78)
+								if (bullet.IntersectsWith(enemy) && y.Width == 78) //if the bullet hits this type of enemy the player gets a faster firerate for 5 seconds
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
@@ -389,6 +390,7 @@ namespace placeholderGame
 							{
 								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
+								//these if statements check what type of enemy the bullet is intersecting with
 								if (bullet.IntersectsWith(enemy) && y.Width == 82)
 								{
 									itemstoremove.Add(x);
@@ -417,7 +419,7 @@ namespace placeholderGame
 									score1 += 8;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 78)
+								if (bullet.IntersectsWith(enemy) && y.Width == 78) //if the bullet hits this type of enemy the player gets a faster firerate for 5 seconds
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
@@ -468,7 +470,7 @@ namespace placeholderGame
 					}
 					#endregion
 
-					#region asteroidRechts Intersects
+					#region asteroidRechts Intersects with player
 					if (x is Rectangle && (string)x.Tag == "asteroidRechts")
 					{
 						Canvas.SetLeft(x, Canvas.GetLeft(x) + EnemySpeed);
@@ -489,7 +491,7 @@ namespace placeholderGame
 					}
 					#endregion
 
-					#region asteroidLinks Intersects
+					#region asteroidLinks Intersects with player
 
 					if (x is Rectangle && (string)x.Tag == "asteroidLinks")
 					{
@@ -512,11 +514,13 @@ namespace placeholderGame
 					#endregion
 				}
 
+				//removes the asteroïds, bullets or enemy's that are out of frame or have been hit
 				foreach (Rectangle r in itemstoremove)
 				{
 					MyCanvas.Children.Remove(r);
 				}
 
+				//calls upon MakeEnemies method when enemyspawncount is 0
 				EnemySpawnCount--;
 				if (EnemySpawnCount < 0)
 				{
@@ -529,7 +533,7 @@ namespace placeholderGame
 
 		#region PowerUpMethods
 		/// <summary>
-		/// this handles the powerups for player 2
+		/// this handles the powerup icon for player 2
 		/// </summary>
 		private async void PlayerPowerUp2()
 		{
@@ -538,7 +542,7 @@ namespace placeholderGame
 			PowerUp2.Visibility = Visibility.Hidden;
 		}
 		/// <summary>
-		/// this handles the powerups for player 1
+		/// this handles the powerup icon for player 1
 		/// </summary>
 		private async void PlayerPowerUp1()
 		{
@@ -581,7 +585,7 @@ namespace placeholderGame
 
 		#region OnKeyUp
 		/// <summary>
-		/// handles the keys that the players letgo
+		/// handles the keys that the players release after pressing
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -627,7 +631,7 @@ namespace placeholderGame
 		{
 			ImageBrush EnemyType = new ImageBrush();
 			int EnemyTypeCounter = rand.Next(1, 16);
-			int Dimension = 0;
+			int Dimension = 0; //needs a value to work but gets overwritten in the switch case
 			// this switchcase handles the percentages of the spawning of enemies. this isnt the best way but it works.
 			switch (EnemyTypeCounter)
 			{
@@ -635,7 +639,7 @@ namespace placeholderGame
 				case 2:
 				case 3:
 				case 4:
-				//common enemy 33 1/3%
+				//common enemy 33 1/3% spawnchance
 				case 5:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/1.png"));
 					Dimension = 82;
@@ -644,7 +648,7 @@ namespace placeholderGame
 				case 6:
 				case 7:
 				case 8:
-				//uncommon enemy 26 2/3%
+				//uncommon enemy 26 2/3% spawnchance
 				case 9:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/2.png"));
 					Dimension = 81;
@@ -652,19 +656,19 @@ namespace placeholderGame
 					
 				case 10:
 				case 11:
-				//rare enemy 20%
+				//rare enemy 20% spawnchance
 				case 12:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/3.png"));
 					Dimension = 80;
 					break;
 
 				case 13:
-				//epic enemy 13 1/3%
+				//epic enemy 13 1/3% spawnchance
 				case 14:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/4.png"));
 					Dimension = 79;
 					break;
-				// Legendary enemy 6 2/3%
+				// Legendary enemy 6 2/3% spawnchance
 				case 15:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/5.png"));
 					Dimension = 78;
@@ -673,7 +677,7 @@ namespace placeholderGame
 			}
 
 			int EnemySpawn = rand.Next(1, 3);
-			// this switchcase handles where the enemy spawns
+			// this switchcase handles whether the enemy spawns on the top or bottom side of the screen
 			switch (EnemySpawn)
 			{
 				case 1:
@@ -698,6 +702,12 @@ namespace placeholderGame
 						Width = Dimension,
 						Fill = EnemyType
 					};
+					//creates a transformation so the enemy's that spawn on the bottom are rotated in the right direction
+					RotateTransform OneEightyDegrees = new RotateTransform(180);
+					OneEightyDegrees.CenterX = Dimension / 2;
+					OneEightyDegrees.CenterY = Dimension / 2;
+
+					NewEnemyBottom.RenderTransform = OneEightyDegrees;
 
 					Canvas.SetTop(NewEnemyBottom, 820);
 					Canvas.SetLeft(NewEnemyBottom, rand.Next(400, 880));
@@ -739,6 +749,11 @@ namespace placeholderGame
 
 		#region PauseButton
 		private bool Pause = false;
+		/// <summary>
+		/// a method to make the PauseMenuButtons appear that also checks if music needs to be turned again when the pausemenu is closed
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Pause_Click(object sender, RoutedEventArgs e)
 		{
 			if (Pause == true)
@@ -796,7 +811,8 @@ namespace placeholderGame
 
 		#region Player1Shoot
 		/// <summary>
-		/// player1shoot handles the logic of when player 1 can shoot
+		/// player1shoot handles the logic of when player 1 can shoot and creates the bullets
+		/// also has a delay so that players can't always rapidfire
 		/// </summary>
 		private async void Player1Shoot()
 		{
@@ -827,7 +843,8 @@ namespace placeholderGame
 
 		#region Player2Shoot
 		/// <summary>
-		/// player2shoot handles the logic of when player 2 can shoot
+		/// player2shoot handles the logic of when player 2 can shoot and creates the bullets
+		/// also has a delay so that players can't always rapidfire
 		/// </summary>
 		private async void Player2Shoot()
 		{
@@ -866,9 +883,9 @@ namespace placeholderGame
 			Asteroid.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/asteroid.png"));
 
 			int AsteroidDirection = rand.Next(1, 3);
-			if (Spawn == 3)
+			if (Spawn == 3) //checks if the Spawn int in the gameEngine = 3 otherwise it won't spawn a asteroid
 			{
-				switch (AsteroidDirection)
+				switch (AsteroidDirection) //contains two cases to choose which direction the asteroid goes to at random
 				{
 					case 1:
 						Rectangle AsteroidLinks = new Rectangle
