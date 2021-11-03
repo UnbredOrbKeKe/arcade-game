@@ -64,9 +64,10 @@ namespace placeholderGame
 
 		private int increment = 120;
 
-		public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
+		//public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
 		//public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Dennis\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf;Integrated Security=True;";
 		//public static string connectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\Documents\GitHub\arcade-game\placeholderGame\placeholderGame\Data\Database1.mdf;Integrated Security=True";
+		public static string connectionString = "Data Source = (LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\denni\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security = True"; // laptop dennis
 
 		public MainWindow()
 		{
@@ -106,9 +107,15 @@ namespace placeholderGame
 
 			ImageBrush player2Image = new ImageBrush();
 			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_orange.png"));
+			RotateTransform Player2rotate = new RotateTransform(270);			
+			player2.RenderTransform = Player2rotate;
 			player2.Fill = player2Image;
+
+
 			ImageBrush player1Image = new ImageBrush();
 			player1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
+			RotateTransform Player1rotate = new RotateTransform(90);
+			player1.RenderTransform = Player1rotate;
 			player1.Fill = player1Image;
 
 			ImageBrush PowerUp1Image = new ImageBrush();
@@ -222,6 +229,41 @@ namespace placeholderGame
 				MessageBox.Show(e.Message);
 			}
 		}
+        #endregion
+
+        #region PlayerHits
+
+		public async void Player1Hit()
+        {
+			ImageBrush player1Image = new ImageBrush();
+			player1Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_blue.png"));
+			RotateTransform Player1rotate = new RotateTransform(90);
+			ImageBrush player1Hit = new ImageBrush();
+			player1Hit.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip2_hit.png"));
+			
+			player1.RenderTransform = Player1rotate;
+			player1.Fill = player1Hit;
+
+			await Task.Delay(PlayerDisableShootTime);
+						
+			player1.Fill = player1Image;
+		}
+		public async void Player2Hit()
+		{
+			ImageBrush player2Image = new ImageBrush();
+			player2Image.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_orange.png"));
+			RotateTransform Player1rotate = new RotateTransform(270);
+			ImageBrush player2Hit = new ImageBrush();
+			player2Hit.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/playerShip1_hit.png"));
+
+			player2.RenderTransform = Player1rotate;
+			player2.Fill = player2Hit;
+
+			await Task.Delay(PlayerDisableShootTime);
+
+			player2.Fill = player2Image;
+		}
+
 		#endregion
 
 		#region GameEngine
@@ -285,6 +327,7 @@ namespace placeholderGame
 						{
 							itemstoremove.Add(x);
 							Player1CanShoot = false;
+							Player1Hit();
 							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
 
 						}
@@ -297,35 +340,35 @@ namespace placeholderGame
 								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
 								//these if statements check what type of enemy the bullet is intersecting with
-								if (bullet.IntersectsWith(enemy) && y.Width == 82)
+								if (bullet.IntersectsWith(enemy) && y.Width == 72)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score2 += 2;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 81)
+								if (bullet.IntersectsWith(enemy) && y.Width == 71)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score2 += 4;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 80)
+								if (bullet.IntersectsWith(enemy) && y.Width == 70)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score2 += 6;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 79)
+								if (bullet.IntersectsWith(enemy) && y.Width == 69)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score2 += 8;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 78) //if the bullet hits this type of enemy the player gets a faster firerate for 5 seconds
+								if (bullet.IntersectsWith(enemy) && y.Width == 68) //if the bullet hits this type of enemy the player gets a faster firerate for 5 seconds
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
@@ -378,6 +421,7 @@ namespace placeholderGame
 						{
 							itemstoremove.Add(x);
 							Player2CanShoot = false;
+							Player2Hit();
 							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
 
 						}
@@ -391,35 +435,35 @@ namespace placeholderGame
 								Rect enemy = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
 								//these if statements check what type of enemy the bullet is intersecting with
-								if (bullet.IntersectsWith(enemy) && y.Width == 82)
+								if (bullet.IntersectsWith(enemy) && y.Width == 72)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score1 += 2;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 81)
+								if (bullet.IntersectsWith(enemy) && y.Width == 71)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score1 += 4;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 80)
+								if (bullet.IntersectsWith(enemy) && y.Width == 70)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score1 += 6;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 79)
+								if (bullet.IntersectsWith(enemy) && y.Width == 69)
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
 									score1 += 8;
 								}
 
-								if (bullet.IntersectsWith(enemy) && y.Width == 78) //if the bullet hits this type of enemy the player gets a faster firerate for 5 seconds
+								if (bullet.IntersectsWith(enemy) && y.Width == 68) //if the bullet hits this type of enemy the player gets a faster firerate for 5 seconds
 								{
 									itemstoremove.Add(x);
 									itemstoremove.Add(y);
@@ -485,6 +529,7 @@ namespace placeholderGame
 						{
 							itemstoremove.Add(x);
 							Player2CanShoot = false;
+							Player2Hit();
 							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
 
 						}
@@ -507,7 +552,8 @@ namespace placeholderGame
 						{
 							itemstoremove.Add(x);
 							Player1CanShoot = false;
-							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player2CanShoot = true; });
+							Player1Hit();
+							Task.Delay(PlayerDisableShootTime).ContinueWith(_ => { Player1CanShoot = true; });
 
 						}
 					}
@@ -642,7 +688,7 @@ namespace placeholderGame
 				//common enemy 33 1/3% spawnchance
 				case 5:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/1.png"));
-					Dimension = 82;
+					Dimension = 72;
 					break;
 
 				case 6:
@@ -651,7 +697,7 @@ namespace placeholderGame
 				//uncommon enemy 26 2/3% spawnchance
 				case 9:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/2.png"));
-					Dimension = 81;
+					Dimension = 71;
 					break;
 					
 				case 10:
@@ -659,19 +705,19 @@ namespace placeholderGame
 				//rare enemy 20% spawnchance
 				case 12:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/3.png"));
-					Dimension = 80;
+					Dimension = 70;
 					break;
 
 				case 13:
 				//epic enemy 13 1/3% spawnchance
 				case 14:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/4.png"));
-					Dimension = 79;
+					Dimension = 69;
 					break;
 				// Legendary enemy 6 2/3% spawnchance
 				case 15:
 					EnemyType.ImageSource = new BitmapImage(new Uri("pack://application:,,,/images/5.png"));
-					Dimension = 78;
+					Dimension = 68;
 					break;
 
 			}
@@ -684,7 +730,7 @@ namespace placeholderGame
 					Rectangle NewEnemyTop = new Rectangle
 					{
 						Tag = "EnemyTop",
-						Height = Dimension,
+						Height = Dimension + 15,
 						Width = Dimension,
 						Fill = EnemyType
 					};
@@ -698,7 +744,7 @@ namespace placeholderGame
 					Rectangle NewEnemyBottom = new Rectangle
 					{
 						Tag = "EnemyBottom",
-						Height = Dimension,
+						Height = Dimension + 15,
 						Width = Dimension,
 						Fill = EnemyType
 					};

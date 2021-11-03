@@ -54,7 +54,9 @@
                    Content="Your goal is to get more points than your opponent by shooting the targets flying through 
                    &#xA;the middle of the screen. Beware however, because meteors fly through space and might hit you
                    &#xA;causing your ship to malfunction. You can also shoot your opponent to disable their ship for a
-                   &#xA;short amount of time." 
+                   &#xA;short amount of time.
+                   &#xA; But don't get hit by asteroids or your oppenent, 
+                   &#xA; because then you will not be able to shoot for 5 seconds" 
                    FontSize="25"
                    Foreground="White" 
                    FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
@@ -64,19 +66,19 @@
                    &#xA;shift to fire." 
                    FontSize="25"
                    Foreground="White" 
-                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" Margin="0,49.8,0,90.2" Grid.RowSpan="2"/>
             <Label Grid.Row="3"
                    Grid.Column="1"
                    Content="Player 2: Player 2 controls their spaceship using the W and S key to move and spacebar to fire." 
                    FontSize="25"
                    Foreground="White" 
-                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" Margin="0,49.8,0,91" Grid.RowSpan="2"/>
             <Label Grid.Row="4"
                    Grid.Column="1"
                    Content="Special: Shooting this spaceship causes your ship to gain a power-up." 
                    FontSize="25"
                    Foreground="White" 
-                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler"/>
+                   FontFamily="/placeholderGame;component/Fonts/#PlayMeGames Reguler" Margin="0,49.8,0,20.4" Grid.RowSpan="2"/>
             <Button Grid.Column="1"
                     Grid.Row="5"
                     VerticalContentAlignment="Center"
