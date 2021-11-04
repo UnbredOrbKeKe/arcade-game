@@ -67,8 +67,8 @@ namespace placeholderGame
 		//public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"G:\\arcade project\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
 		//public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Dennis\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf;Integrated Security=True;";
 		//public static string connectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\Documents\GitHub\arcade-game\placeholderGame\placeholderGame\Data\Database1.mdf;Integrated Security=True";
-		public static string connectionString = "Data Source = (LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\denni\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security = True"; // laptop dennis
-
+		//public static string connectionString = "Data Source = (LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\denni\\Documents\\GitHub\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security = True"; // laptop dennis
+		public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"D:\\School\\nhlstenden\\arcadegameproject\\arcade-game\\placeholderGame\\placeholderGame\\Data\\Database1.mdf\";Integrated Security=True";
 		public MainWindow()
 		{
 			InitializeComponent();
